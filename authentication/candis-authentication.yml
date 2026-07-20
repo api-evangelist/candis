@@ -1,0 +1,67 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.candis.io/docs/how-to-authenticate
+docs:
+- https://developer.candis.io/docs/authentication-overview
+- https://developer.candis.io/docs/how-to-authenticate
+- https://developer.candis.io/docs/token-exchange
+- https://developer.candis.io/docs/access-token-scopes
+oidc_discovery: https://id.my.candis.io/auth/realms/candis/.well-known/openid-configuration
+summary:
+  types: [oauth2, openIdConnect]
+  primary: oauth2
+  api_key_in: []
+  oauth2_flows: [authorizationCode, clientCredentials, tokenExchange]
+  token_transport: Authorization Bearer header
+  authorization_server: Keycloak (realm "candis")
+schemes:
+- name: oauth2
+  type: oauth2
+  identity_provider: Keycloak
+  issuer: https://id.my.candis.io/auth/realms/candis
+  client_authentication: HTTP Basic (client_id:client_secret, base64-encoded)
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/auth
+    tokenUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token
+    notes: >-
+      User is redirected to consent and select an organization; authorization code is
+      short-lived (expires in ~30-50 seconds) and exchanged for access + refresh tokens.
+      Redirect URIs must be whitelisted by Candis. Desktop/limited-webserver clients use
+      the out-of-band redirect https://my.candis.io/authentication_code.
+  - flow: clientCredentials
+    tokenUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token
+    notes: Supported by the authorization server for service accounts (service_account scope).
+  - flow: tokenExchange
+    grant_type: urn:ietf:params:oauth:grant-type:token-exchange
+    tokenUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token
+    docs: https://developer.candis.io/docs/token-exchange
+  token_lifetimes:
+    access_token_seconds_example: 1209600
+    refresh_token_seconds_example: 15551995
+    offline_access: >-
+      Including the offline_access scope yields long-lived tokens (validity up to ~6-24
+      months) for background/long-running services.
+  grant_types_supported:
+  - authorization_code
+  - client_credentials
+  - implicit
+  - password
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  - urn:ietf:params:oauth:grant-type:uma-ticket
+  - urn:openid:params:grant-type:ciba
+  sources:
+  - https://developer.candis.io/docs/how-to-authenticate
+  - well-known/candis-openid-configuration.json
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  applies_to: https://api.candis.io/v1/organizations/*
+  notes: >-
+    All Candis resource API requests carry the OAuth access token as an
+    "Authorization: Bearer {access_token}" header.
+  sources:
+  - openapi/candis-openapi.json
