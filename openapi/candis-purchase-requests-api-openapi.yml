@@ -1,0 +1,438 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data Purchase Requests API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Purchase Requests
+  description: Read purchase request data.
+paths:
+  /v1/organizations/{organizationId}/purchase-requests:
+    get:
+      operationId: listPurchaseRequests
+      summary: List purchase requests of the organization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The offset of the first element in the list.
+        example: 0
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of elements to return.
+        example: 50
+        schema:
+          minimum: 1
+          default: 50
+          type: number
+      - name: sortField
+        required: false
+        in: query
+        description: The field to sort by.
+        example: CREATED_AT
+        schema:
+          default: CREATED_AT
+          enum:
+          - CREATED_AT
+          - UPDATED_AT
+          type: string
+      - name: sortDirection
+        required: false
+        in: query
+        description: The direction to sort by.
+        example: ASC
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+      - name: status
+        required: false
+        in: query
+        description: Filter by one or more purchase request statuses. Comma separated values.
+        example: APPROVED
+        schema:
+          enum:
+          - APPROVING
+          - APPROVED
+          - REJECTED
+          - FULFILLED
+          - PARTIALLY_FULFILLED
+          - CANCELLED
+          type: string
+      - name: createdAtFrom
+        required: false
+        in: query
+        description: From date and time when the purchase request was created.
+        example: '2024-01-01T12:00:00.000Z'
+        schema:
+          type: string
+      - name: createdAtTo
+        required: false
+        in: query
+        description: To date and time when the purchase request was created.
+        example: '2024-01-31T12:00:00.000Z'
+        schema:
+          type: string
+      - name: updatedAtFrom
+        required: false
+        in: query
+        description: From date and time when the purchase request was updated.
+        example: '2024-01-01T12:00:00.000Z'
+        schema:
+          type: string
+      - name: updatedAtTo
+        required: false
+        in: query
+        description: To date and time when the purchase request was updated.
+        example: '2024-01-31T12:00:00.000Z'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchaseRequests:
+                    description: Records of purchase requests.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the purchase request.
+                          example: d851a73e-94d6-4f4b-babc-ef9314fc8184
+                        status:
+                          type: string
+                          description: Current status of the purchase request.
+                          example: APPROVED
+                          enum:
+                          - APPROVING
+                          - APPROVED
+                          - REJECTED
+                          - FULFILLED
+                          - PARTIALLY_FULFILLED
+                          - CANCELLED
+                        supplier:
+                          description: Supplier contact details.
+                          allOf:
+                          - type: object
+                            properties:
+                              name:
+                                type: string
+                                description: Supplier name.
+                                example: ACME Supplies GmbH
+                              accountPayableNumber:
+                                type: string
+                                description: Supplier accounts payable number.
+                                example: AP-1001
+                              accountReceivableNumber:
+                                type: string
+                                description: Supplier accounts receivable number.
+                                example: AR-1001
+                            required:
+                            - name
+                        title:
+                          type: string
+                          description: Title of the purchase request.
+                          example: Office Chairs
+                        description:
+                          type: string
+                          description: Description of the purchase request.
+                          example: Ergonomic chairs for the Berlin office
+                        requestNumber:
+                          type: string
+                          description: Purchase request number.
+                          example: PR-2024-001
+                        grossAmount:
+                          description: Gross amount.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: Amount value as decimal number.
+                                example: 123.12
+                              currencyCode:
+                                type: string
+                                description: ISO currency code.
+                                example: EUR
+                            required:
+                            - value
+                            - currencyCode
+                        netAmount:
+                          description: Net amount.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: Amount value as decimal number.
+                                example: 123.12
+                              currencyCode:
+                                type: string
+                                description: ISO currency code.
+                                example: EUR
+                            required:
+                            - value
+                            - currencyCode
+                        deliveryDate:
+                          type: string
+                          description: Delivery date as ISO 8601 datetime string.
+                          example: '2022-09-15T22:00:00.000Z'
+                        notes:
+                          type: string
+                          description: Additional notes for the purchase request.
+                          example: Please prioritize delivery this week.
+                        costCenter:
+                          description: Cost center.
+                          allOf:
+                          - type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Cost dimension code.
+                                example: CC-1000
+                              name:
+                                type: string
+                                description: Cost dimension name.
+                                example: Operations
+                            required:
+                            - code
+                        costObject:
+                          description: Cost object.
+                          allOf:
+                          - type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Cost dimension code.
+                                example: CC-1000
+                              name:
+                                type: string
+                                description: Cost dimension name.
+                                example: Operations
+                            required:
+                            - code
+                        generalLedgerAccount:
+                          description: General ledger account.
+                          allOf:
+                          - type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Cost dimension code.
+                                example: CC-1000
+                              name:
+                                type: string
+                                description: Cost dimension name.
+                                example: Operations
+                            required:
+                            - code
+                        extraCostInfo:
+                          description: Extra cost info.
+                          allOf:
+                          - type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Cost dimension code.
+                                example: CC-1000
+                              name:
+                                type: string
+                                description: Cost dimension name.
+                                example: Operations
+                            required:
+                            - code
+                        customCategory:
+                          description: Custom category.
+                          allOf:
+                          - type: object
+                            properties:
+                              id:
+                                type: string
+                                description: Custom category identifier.
+                                example: cat-001
+                              value:
+                                type: string
+                                description: Custom category value.
+                                example: Marketing
+                            required:
+                            - id
+                            - value
+                        outstandingNetAmount:
+                          description: Outstanding net amount.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: Amount value as decimal number.
+                                example: 123.12
+                              currencyCode:
+                                type: string
+                                description: ISO currency code.
+                                example: EUR
+                            required:
+                            - value
+                            - currencyCode
+                        createdAt:
+                          type: string
+                          description: Creation timestamp of the purchase request in ISO 8601.
+                          example: '2022-09-15T22:00:00.000Z'
+                        updatedAt:
+                          type: string
+                          description: Last update timestamp of the purchase request in ISO 8601.
+                          example: '2022-09-16T22:00:00.000Z'
+                      required:
+                      - id
+                      - status
+                      - createdAt
+                      - updatedAt
+                  pagination:
+                    description: Pagination data providing information and the record count, page size and total count.
+                    allOf:
+                    - type: object
+                      properties:
+                        pageCount:
+                          type: number
+                          example: 10
+                          description: This is the total number of pages available with records
+                        pageSize:
+                          type: number
+                          example: 50
+                          description: This is the length of size of the current page
+                        totalCount:
+                          type: number
+                          example: 500
+                          description: This is the total count of export records available
+                      required:
+                      - pageCount
+                      - pageSize
+                      - totalCount
+                required:
+                - purchaseRequests
+                - pagination
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Purchase Requests
+      security:
+      - bearer: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.

@@ -1,0 +1,1648 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data Reimbursements API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Reimbursements
+paths:
+  /v1/organizations/{organizationId}/reimbursement-items:
+    get:
+      operationId: listReimbursementItems
+      summary: List reimbursement items of the organization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The offset of the first element in the list.
+        example: 0
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of elements to return.
+        example: 50
+        schema:
+          minimum: 1
+          default: 50
+          type: number
+      - name: sortField
+        required: false
+        in: query
+        description: The field to sort by.
+        example: REIMBURSEMENT_ITEM_DATE
+        schema:
+          enum:
+          - REIMBURSEMENT_ITEM_DATE
+          - UPDATED_AT
+          type: string
+      - name: sortDirection
+        required: false
+        in: query
+        description: The direction to sort by.
+        example: ASC
+        schema:
+          enum:
+          - ASC
+          - DESC
+          type: string
+      - name: status
+        required: false
+        in: query
+        description: Current status of the reimbursement item. Comma separated values.
+        example: EXPORTED
+        schema:
+          enum:
+          - APPROVED
+          - EXPORTED
+          type: string
+      - name: types
+        required: false
+        in: query
+        description: Type of the reimbursement item. Comma separated values.
+        example: GENERAL_EXPENSE
+        schema:
+          enum:
+          - GENERAL_EXPENSE
+          - HOSPITALITY_EXPENSE
+          - PER_DIEM
+          - MILEAGE
+          type: string
+      - name: reimbursementItemDateFrom
+        required: false
+        in: query
+        description: From date and time for reimbursement item date.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: reimbursementItemDateTo
+        required: false
+        in: query
+        description: To date and time for reimbursement item date.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: updatedAtFrom
+        required: false
+        in: query
+        description: From date and time when the reimbursement item was updated.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: updatedAtTo
+        required: false
+        in: query
+        description: To date and time when the reimbursement item was updated.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reimbursementItems:
+                    type: array
+                    description: Records of reimbursement items.
+                    items:
+                      oneOf:
+                      - title: Hospitality Expense
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of the reimbursement item.
+                            example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                          status:
+                            type: string
+                            enum:
+                            - APPROVED
+                            - EXPORTED
+                          createdAt:
+                            type: string
+                            description: Created at.
+                            example: '2024-01-01T12:00:00Z'
+                          updatedAt:
+                            type: string
+                            description: Updated at.
+                            example: '2024-01-01T12:00:00Z'
+                          title:
+                            type: string
+                            description: Title of the reimbursement item.
+                            example: Reimbursement Item Title
+                          totalAmount:
+                            description: Total amount of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                          reimbursementCase:
+                            description: Reimbursement item case.
+                            allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Unique identifier of the reimbursement item case.
+                                  example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                                title:
+                                  type: string
+                                  description: Title of the reimbursement item case.
+                                  example: Reimbursement Item Case Title
+                                submittedForReviewAt:
+                                  type: string
+                                  description: Submitted for review at.
+                                  example: '2024-01-01T12:00:00Z'
+                              required:
+                              - id
+                              - title
+                              - submittedForReviewAt
+                          contact:
+                            description: Contact of the reimbursement item.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Contact name
+                                  example: John Doe
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Contact payable number
+                                  example: K1349234
+                                  nullable: true
+                                paymentInfo:
+                                  type: object
+                                  properties:
+                                    iban:
+                                      type: string
+                                      description: IBAN
+                                      example: DE12345678901234567890
+                                    swiftCode:
+                                      type: string
+                                      description: SWIFT code
+                                      example: BIC123456789
+                                      nullable: true
+                                    bankAccountNumber:
+                                      type: string
+                                      description: Bank account number
+                                      example: '1234567890'
+                                      nullable: true
+                                    accountHolder:
+                                      type: string
+                                      description: Account holder
+                                      example: John Doe
+                                      nullable: true
+                                  required:
+                                  - iban
+                          bookings:
+                            description: Bookings of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dueDate:
+                                  type: string
+                                  description: Discount payment date
+                                  example: '2022-09-15T22:00:00.000Z'
+                                  nullable: true
+                                amount:
+                                  type: number
+                                  description: Amount in original currency.
+                                  example: 2784
+                                baseAmount:
+                                  type: number
+                                  description: Amount in base currency (EUR).
+                                  example: 2784
+                                  nullable: true
+                                costCenter:
+                                  description: Cost center
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  description: General ledger account
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      accountCode:
+                                        type: string
+                                        description: General ledger account code
+                                        example: '1100'
+                                      name:
+                                        type: string
+                                        description: General ledger account name
+                                        example: electricity
+                                    required:
+                                    - accountCode
+                                    - name
+                                extraCostInfo:
+                                  description: Extra cost info
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                artistSocialInsuranceCode:
+                                  type: string
+                                  description: Artist social insurance code.
+                                  example: W
+                                  nullable: true
+                                bookingKey:
+                                  description: Booking key
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax Code
+                                        example: '40'
+                                      description:
+                                        type: string
+                                        description: Tax code description
+                                        example: Tax Code 40
+                                    required:
+                                    - taxCode
+                                    - description
+                                vatRate:
+                                  type: number
+                                  description: Vat rate
+                                  nullable: true
+                                note:
+                                  type: string
+                                  description: Note
+                                  example: This is a note.
+                                  nullable: true
+                                postingText:
+                                  type: string
+                                  description: Posting text
+                                  example: This is a posting text.
+                                  nullable: true
+                              required:
+                              - amount
+                          invoiceNumber:
+                            type: string
+                            description: Invoice number of the reimbursement item.
+                            example: '1234567890'
+                          expenseDate:
+                            type: string
+                            description: Expense date of the reimbursement item.
+                            example: '2024-01-01T12:00:00Z'
+                          type:
+                            type: string
+                            enum:
+                            - HOSPITALITY_EXPENSE
+                          location:
+                            type: string
+                            description: Location of the reimbursement item.
+                            example: Berlin
+                            nullable: true
+                          internalGuests:
+                            description: Internal guests of the reimbursement item.
+                            example:
+                            - John Doe
+                            - Jane Doe
+                            nullable: true
+                            type: array
+                            items:
+                              type: string
+                          externalGuests:
+                            description: External guests of the reimbursement item.
+                            example:
+                            - John Doe
+                            - Jane Doe
+                            nullable: true
+                            type: array
+                            items:
+                              type: string
+                          tipAmount:
+                            description: Tip amount of the reimbursement item.
+                            example: 10000
+                            nullable: true
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                          receiptAmount:
+                            description: Receipt amount of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                        required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - title
+                        - totalAmount
+                        - reimbursementCase
+                        - contact
+                        - bookings
+                        - invoiceNumber
+                        - expenseDate
+                        - type
+                        - receiptAmount
+                      - title: General Expense
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of the reimbursement item.
+                            example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                          status:
+                            type: string
+                            enum:
+                            - APPROVED
+                            - EXPORTED
+                          createdAt:
+                            type: string
+                            description: Created at.
+                            example: '2024-01-01T12:00:00Z'
+                          updatedAt:
+                            type: string
+                            description: Updated at.
+                            example: '2024-01-01T12:00:00Z'
+                          title:
+                            type: string
+                            description: Title of the reimbursement item.
+                            example: Reimbursement Item Title
+                          totalAmount:
+                            description: Total amount of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                          reimbursementCase:
+                            description: Reimbursement item case.
+                            allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Unique identifier of the reimbursement item case.
+                                  example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                                title:
+                                  type: string
+                                  description: Title of the reimbursement item case.
+                                  example: Reimbursement Item Case Title
+                                submittedForReviewAt:
+                                  type: string
+                                  description: Submitted for review at.
+                                  example: '2024-01-01T12:00:00Z'
+                              required:
+                              - id
+                              - title
+                              - submittedForReviewAt
+                          contact:
+                            description: Contact of the reimbursement item.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Contact name
+                                  example: John Doe
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Contact payable number
+                                  example: K1349234
+                                  nullable: true
+                                paymentInfo:
+                                  type: object
+                                  properties:
+                                    iban:
+                                      type: string
+                                      description: IBAN
+                                      example: DE12345678901234567890
+                                    swiftCode:
+                                      type: string
+                                      description: SWIFT code
+                                      example: BIC123456789
+                                      nullable: true
+                                    bankAccountNumber:
+                                      type: string
+                                      description: Bank account number
+                                      example: '1234567890'
+                                      nullable: true
+                                    accountHolder:
+                                      type: string
+                                      description: Account holder
+                                      example: John Doe
+                                      nullable: true
+                                  required:
+                                  - iban
+                          bookings:
+                            description: Bookings of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dueDate:
+                                  type: string
+                                  description: Discount payment date
+                                  example: '2022-09-15T22:00:00.000Z'
+                                  nullable: true
+                                amount:
+                                  type: number
+                                  description: Amount in original currency.
+                                  example: 2784
+                                baseAmount:
+                                  type: number
+                                  description: Amount in base currency (EUR).
+                                  example: 2784
+                                  nullable: true
+                                costCenter:
+                                  description: Cost center
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  description: General ledger account
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      accountCode:
+                                        type: string
+                                        description: General ledger account code
+                                        example: '1100'
+                                      name:
+                                        type: string
+                                        description: General ledger account name
+                                        example: electricity
+                                    required:
+                                    - accountCode
+                                    - name
+                                extraCostInfo:
+                                  description: Extra cost info
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                artistSocialInsuranceCode:
+                                  type: string
+                                  description: Artist social insurance code.
+                                  example: W
+                                  nullable: true
+                                bookingKey:
+                                  description: Booking key
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax Code
+                                        example: '40'
+                                      description:
+                                        type: string
+                                        description: Tax code description
+                                        example: Tax Code 40
+                                    required:
+                                    - taxCode
+                                    - description
+                                vatRate:
+                                  type: number
+                                  description: Vat rate
+                                  nullable: true
+                                note:
+                                  type: string
+                                  description: Note
+                                  example: This is a note.
+                                  nullable: true
+                                postingText:
+                                  type: string
+                                  description: Posting text
+                                  example: This is a posting text.
+                                  nullable: true
+                              required:
+                              - amount
+                          invoiceNumber:
+                            type: string
+                            description: Invoice number of the reimbursement item.
+                            example: '1234567890'
+                          expenseDate:
+                            type: string
+                            description: Expense date of the reimbursement item.
+                            example: '2024-01-01T12:00:00Z'
+                          type:
+                            type: string
+                            enum:
+                            - GENERAL_EXPENSE
+                        required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - title
+                        - totalAmount
+                        - reimbursementCase
+                        - contact
+                        - bookings
+                        - invoiceNumber
+                        - expenseDate
+                        - type
+                      - title: Per Diem
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of the reimbursement item.
+                            example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                          status:
+                            type: string
+                            enum:
+                            - APPROVED
+                            - EXPORTED
+                          createdAt:
+                            type: string
+                            description: Created at.
+                            example: '2024-01-01T12:00:00Z'
+                          updatedAt:
+                            type: string
+                            description: Updated at.
+                            example: '2024-01-01T12:00:00Z'
+                          title:
+                            type: string
+                            description: Title of the reimbursement item.
+                            example: Reimbursement Item Title
+                          totalAmount:
+                            description: Total amount of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                          reimbursementCase:
+                            description: Reimbursement item case.
+                            allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Unique identifier of the reimbursement item case.
+                                  example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                                title:
+                                  type: string
+                                  description: Title of the reimbursement item case.
+                                  example: Reimbursement Item Case Title
+                                submittedForReviewAt:
+                                  type: string
+                                  description: Submitted for review at.
+                                  example: '2024-01-01T12:00:00Z'
+                              required:
+                              - id
+                              - title
+                              - submittedForReviewAt
+                          contact:
+                            description: Contact of the reimbursement item.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Contact name
+                                  example: John Doe
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Contact payable number
+                                  example: K1349234
+                                  nullable: true
+                                paymentInfo:
+                                  type: object
+                                  properties:
+                                    iban:
+                                      type: string
+                                      description: IBAN
+                                      example: DE12345678901234567890
+                                    swiftCode:
+                                      type: string
+                                      description: SWIFT code
+                                      example: BIC123456789
+                                      nullable: true
+                                    bankAccountNumber:
+                                      type: string
+                                      description: Bank account number
+                                      example: '1234567890'
+                                      nullable: true
+                                    accountHolder:
+                                      type: string
+                                      description: Account holder
+                                      example: John Doe
+                                      nullable: true
+                                  required:
+                                  - iban
+                          bookings:
+                            description: Bookings of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dueDate:
+                                  type: string
+                                  description: Discount payment date
+                                  example: '2022-09-15T22:00:00.000Z'
+                                  nullable: true
+                                amount:
+                                  type: number
+                                  description: Amount in original currency.
+                                  example: 2784
+                                baseAmount:
+                                  type: number
+                                  description: Amount in base currency (EUR).
+                                  example: 2784
+                                  nullable: true
+                                costCenter:
+                                  description: Cost center
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  description: General ledger account
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      accountCode:
+                                        type: string
+                                        description: General ledger account code
+                                        example: '1100'
+                                      name:
+                                        type: string
+                                        description: General ledger account name
+                                        example: electricity
+                                    required:
+                                    - accountCode
+                                    - name
+                                extraCostInfo:
+                                  description: Extra cost info
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                artistSocialInsuranceCode:
+                                  type: string
+                                  description: Artist social insurance code.
+                                  example: W
+                                  nullable: true
+                                bookingKey:
+                                  description: Booking key
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax Code
+                                        example: '40'
+                                      description:
+                                        type: string
+                                        description: Tax code description
+                                        example: Tax Code 40
+                                    required:
+                                    - taxCode
+                                    - description
+                                vatRate:
+                                  type: number
+                                  description: Vat rate
+                                  nullable: true
+                                note:
+                                  type: string
+                                  description: Note
+                                  example: This is a note.
+                                  nullable: true
+                                postingText:
+                                  type: string
+                                  description: Posting text
+                                  example: This is a posting text.
+                                  nullable: true
+                              required:
+                              - amount
+                          invoiceNumber:
+                            type: string
+                            description: Invoice number of the reimbursement item.
+                            example: '1234567890'
+                          expenseDate:
+                            type: string
+                            description: Expense date of the reimbursement item.
+                            example: '2024-01-01T12:00:00Z'
+                          type:
+                            type: string
+                            enum:
+                            - PER_DIEM
+                          segments:
+                            description: Segments of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                startAt:
+                                  type: string
+                                  description: Start at of the reimbursement item segment.
+                                  example: '2024-01-01T12:00:00Z'
+                                endAt:
+                                  type: string
+                                  description: End at of the reimbursement item segment.
+                                  example: '2024-01-01T12:00:00Z'
+                                location:
+                                  description: Location of the reimbursement item segment.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      region:
+                                        description: Region of the reimbursement item.
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                      countryIsoCode:
+                                        type: string
+                                        description: Country ISO code of the reimbursement item.
+                                        example: DE
+                                      country:
+                                        description: Country of the reimbursement item.
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                      location:
+                                        description: Location of the reimbursement item.
+                                        nullable: true
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                    required:
+                                    - region
+                                    - countryIsoCode
+                                    - country
+                              required:
+                              - startAt
+                              - endAt
+                              - location
+                          days:
+                            description: Days of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                date:
+                                  type: string
+                                  description: Date of the reimbursement item day.
+                                  example: '2024-01-01T12:00:00Z'
+                                numberOfMinutes:
+                                  type: number
+                                  description: Number of minutes of the reimbursement item day.
+                                  example: 100
+                                dayRate:
+                                  description: Day rate of the reimbursement item day.
+                                  example: 10000
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      amount:
+                                        type: number
+                                        description: Original amount before currency conversion
+                                      currency:
+                                        type: string
+                                        description: Original currency before conversion to base currency
+                                    required:
+                                    - amount
+                                    - currency
+                                reimbursableRate:
+                                  description: Reimbursable rate of the reimbursement item day.
+                                  example: 10000
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      amount:
+                                        type: number
+                                        description: Original amount before currency conversion
+                                      currency:
+                                        type: string
+                                        description: Original currency before conversion to base currency
+                                    required:
+                                    - amount
+                                    - currency
+                                location:
+                                  description: Location of the reimbursement item day.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      region:
+                                        description: Region of the reimbursement item.
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                      countryIsoCode:
+                                        type: string
+                                        description: Country ISO code of the reimbursement item.
+                                        example: DE
+                                      country:
+                                        description: Country of the reimbursement item.
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                      location:
+                                        description: Location of the reimbursement item.
+                                        nullable: true
+                                        allOf:
+                                        - type: object
+                                          properties:
+                                            en:
+                                              type: string
+                                              description: English translation.
+                                              example: English
+                                            de:
+                                              type: string
+                                              description: German translation.
+                                              example: German
+                                          required:
+                                          - en
+                                          - de
+                                    required:
+                                    - region
+                                    - countryIsoCode
+                                    - country
+                                providedBreakfast:
+                                  type: boolean
+                                  description: Provided breakfast of the reimbursement item day.
+                                  example: true
+                                providedLunch:
+                                  type: boolean
+                                  description: Provided lunch of the reimbursement item day.
+                                  example: true
+                                providedDinner:
+                                  type: boolean
+                                  description: Provided dinner of the reimbursement item day.
+                                  example: true
+                                providedAccommodation:
+                                  type: boolean
+                                  description: Provided accommodation of the reimbursement item day.
+                                  example: true
+                                  nullable: true
+                              required:
+                              - date
+                              - numberOfMinutes
+                              - dayRate
+                              - reimbursableRate
+                              - location
+                              - providedBreakfast
+                              - providedLunch
+                              - providedDinner
+                        required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - title
+                        - totalAmount
+                        - reimbursementCase
+                        - contact
+                        - bookings
+                        - invoiceNumber
+                        - expenseDate
+                        - type
+                        - segments
+                        - days
+                      - title: Mileage
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of the reimbursement item.
+                            example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                          status:
+                            type: string
+                            enum:
+                            - APPROVED
+                            - EXPORTED
+                          createdAt:
+                            type: string
+                            description: Created at.
+                            example: '2024-01-01T12:00:00Z'
+                          updatedAt:
+                            type: string
+                            description: Updated at.
+                            example: '2024-01-01T12:00:00Z'
+                          title:
+                            type: string
+                            description: Title of the reimbursement item.
+                            example: Reimbursement Item Title
+                          totalAmount:
+                            description: Total amount of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                                baseAmount:
+                                  type: number
+                                  description: Amount after currency conversion to base currency (EUR)
+                                  nullable: true
+                                baseCurrency:
+                                  type: string
+                                  description: Base currency for conversion
+                                  nullable: true
+                                exchangeRate:
+                                  type: number
+                                  description: Exchange rate used for currency conversion
+                                  nullable: true
+                                exchangeRateDate:
+                                  type: string
+                                  description: Date for exchange rate calculation
+                                  nullable: true
+                              required:
+                              - amount
+                              - currency
+                          reimbursementCase:
+                            description: Reimbursement item case.
+                            allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Unique identifier of the reimbursement item case.
+                                  example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                                title:
+                                  type: string
+                                  description: Title of the reimbursement item case.
+                                  example: Reimbursement Item Case Title
+                                submittedForReviewAt:
+                                  type: string
+                                  description: Submitted for review at.
+                                  example: '2024-01-01T12:00:00Z'
+                              required:
+                              - id
+                              - title
+                              - submittedForReviewAt
+                          contact:
+                            description: Contact of the reimbursement item.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Contact name
+                                  example: John Doe
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Contact payable number
+                                  example: K1349234
+                                  nullable: true
+                                paymentInfo:
+                                  type: object
+                                  properties:
+                                    iban:
+                                      type: string
+                                      description: IBAN
+                                      example: DE12345678901234567890
+                                    swiftCode:
+                                      type: string
+                                      description: SWIFT code
+                                      example: BIC123456789
+                                      nullable: true
+                                    bankAccountNumber:
+                                      type: string
+                                      description: Bank account number
+                                      example: '1234567890'
+                                      nullable: true
+                                    accountHolder:
+                                      type: string
+                                      description: Account holder
+                                      example: John Doe
+                                      nullable: true
+                                  required:
+                                  - iban
+                          bookings:
+                            description: Bookings of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dueDate:
+                                  type: string
+                                  description: Discount payment date
+                                  example: '2022-09-15T22:00:00.000Z'
+                                  nullable: true
+                                amount:
+                                  type: number
+                                  description: Amount in original currency.
+                                  example: 2784
+                                baseAmount:
+                                  type: number
+                                  description: Amount in base currency (EUR).
+                                  example: 2784
+                                  nullable: true
+                                costCenter:
+                                  description: Cost center
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  description: General ledger account
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      accountCode:
+                                        type: string
+                                        description: General ledger account code
+                                        example: '1100'
+                                      name:
+                                        type: string
+                                        description: General ledger account name
+                                        example: electricity
+                                    required:
+                                    - accountCode
+                                    - name
+                                extraCostInfo:
+                                  description: Extra cost info
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        example: KOST2
+                                      name:
+                                        type: string
+                                        example: booking-1-cs-2-name
+                                    required:
+                                    - code
+                                artistSocialInsuranceCode:
+                                  type: string
+                                  description: Artist social insurance code.
+                                  example: W
+                                  nullable: true
+                                bookingKey:
+                                  description: Booking key
+                                  nullable: true
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax Code
+                                        example: '40'
+                                      description:
+                                        type: string
+                                        description: Tax code description
+                                        example: Tax Code 40
+                                    required:
+                                    - taxCode
+                                    - description
+                                vatRate:
+                                  type: number
+                                  description: Vat rate
+                                  nullable: true
+                                note:
+                                  type: string
+                                  description: Note
+                                  example: This is a note.
+                                  nullable: true
+                                postingText:
+                                  type: string
+                                  description: Posting text
+                                  example: This is a posting text.
+                                  nullable: true
+                              required:
+                              - amount
+                          invoiceNumber:
+                            type: string
+                            description: Invoice number of the reimbursement item.
+                            example: '1234567890'
+                          expenseDate:
+                            type: string
+                            description: Expense date of the reimbursement item.
+                            example: '2024-01-01T12:00:00Z'
+                          type:
+                            type: string
+                            enum:
+                            - MILEAGE
+                          locations:
+                            description: Locations of the reimbursement item.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  description: English translation.
+                                  example: English
+                                de:
+                                  type: string
+                                  description: German translation.
+                                  example: German
+                              required:
+                              - en
+                              - de
+                          applicableRate:
+                            description: Applicable rate of the reimbursement item.
+                            example: 10000
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Original amount before currency conversion
+                                currency:
+                                  type: string
+                                  description: Original currency before conversion to base currency
+                              required:
+                              - amount
+                              - currency
+                          distanceOverride:
+                            description: Distance override of the reimbursement item.
+                            nullable: true
+                            allOf:
+                            - type: object
+                              properties:
+                                enabled:
+                                  type: boolean
+                                  description: Enabled of the reimbursement item.
+                                  example: true
+                                  nullable: true
+                                distanceInKm:
+                                  type: number
+                                  description: Distance in km of the reimbursement item.
+                                  example: 100
+                                  nullable: true
+                                reason:
+                                  type: string
+                                  description: Reason of the reimbursement item.
+                                  example: Reason for the distance override
+                                  nullable: true
+                          vehicleType:
+                            type: string
+                            description: Vehicle type of the reimbursement item.
+                            enum:
+                            - CAR
+                            - MOTORBIKE
+                          calculatedDistanceInKm:
+                            type: number
+                            description: Calculated distance in km of the reimbursement item.
+                            example: 100
+                          isRoundTrip:
+                            type: boolean
+                            description: Is round trip of the reimbursement item.
+                            example: true
+                        required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - title
+                        - totalAmount
+                        - reimbursementCase
+                        - contact
+                        - bookings
+                        - invoiceNumber
+                        - expenseDate
+                        - type
+                        - locations
+                        - applicableRate
+                        - vehicleType
+                        - calculatedDistanceInKm
+                        - isRoundTrip
+                  pagination:
+                    description: Pagination Data providing information and the record count, page size and total count
+                    allOf:
+                    - type: object
+                      properties:
+                        pageCount:
+                          type: number
+                          example: 10
+                          description: This is the total number of pages available with records
+                        pageSize:
+                          type: number
+                          example: 50
+                          description: This is the length of size of the current page
+                        totalCount:
+                          type: number
+                          example: 500
+                          description: This is the total count of export records available
+                      required:
+                      - pageCount
+                      - pageSize
+                      - totalCount
+                required:
+                - reimbursementItems
+                - pagination
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Reimbursements
+      security:
+      - bearer: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.

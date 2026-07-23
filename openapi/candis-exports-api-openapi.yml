@@ -1,0 +1,1893 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data Exports API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Exports
+  description: Export approved invoices and postings to accounting/ERP systems.
+paths:
+  /v1/organizations/{organizationId}/exports:
+    post:
+      operationId: createExport
+      summary: Create an Export
+      description: Create an Export and return basic details. Initial status of the Export will be "EXPORTING".
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          format: slug
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entityType:
+                  type: string
+                  description: Posting Type for which you need to create an Export for.
+                  example: DOCUMENT
+                  default: DOCUMENT
+                  enum:
+                  - DOCUMENT
+                  - REIMBURSEMENT_ITEM
+                  - CARD_TRANSACTION
+                  nullable: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The unique identifier of the export.
+                    example: 86e29aff-ba75-492d-85f6-80d802c4fe69
+                  postingsCount:
+                    type: number
+                    description: The number of postings in the export.
+                    example: 10
+                  status:
+                    type: string
+                    description: 'Current status of the export.<br><br>EXPORTING: The export is in progress.'
+                    example: EXPORTING
+                    enum:
+                    - EXPORTING
+                  createdAt:
+                    format: date-time
+                    type: string
+                    description: The date and time when the export was initiated.
+                    example: '2021-08-31T12:00:00Z'
+                required:
+                - id
+                - postingsCount
+                - status
+                - createdAt
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Exports
+      security:
+      - bearer: []
+    get:
+      operationId: getExports
+      summary: Get a list Exports
+      description: Get a list of past Exports in the Organization.
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        description: The offset of the first element in the list.
+        example: 0
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of elements to return.
+        example: 50
+        schema:
+          minimum: 1
+          default: 50
+          type: number
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          format: slug
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exports:
+                    description: List of exports.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier of the export.
+                          example: 86e29aff-ba75-492d-85f6-80d802c4fe69
+                        postingsCount:
+                          type: number
+                          description: The number of postings in the export.
+                          example: 10
+                        status:
+                          type: string
+                          description: 'Current status of the export.<br><br>EXPORTING: The export processing is still in progress.<br>EXPORTED: The export is completed.<br>FAILED: The export failed.<br>PARTIALLY_EXPORTED: The export was partially successful.'
+                          example: EXPORTED
+                          enum:
+                          - EXPORTING
+                          - EXPORTED
+                          - FAILED
+                          - PARTIALLY_EXPORTED
+                        createdAt:
+                          format: date-time
+                          type: string
+                          description: The date and time when the export was initiated.
+                          example: '2024-01-01T12:00:00Z'
+                      required:
+                      - id
+                      - postingsCount
+                      - status
+                      - createdAt
+                  pagination:
+                    description: Pagination Data providing information and the record count, page size and total count
+                    allOf:
+                    - type: object
+                      properties:
+                        pageCount:
+                          type: number
+                          example: 10
+                          description: This is the total number of pages available with records
+                        pageSize:
+                          type: number
+                          example: 50
+                          description: This is the length of size of the current page
+                        totalCount:
+                          type: number
+                          example: 500
+                          description: This is the total count of export records available
+                      required:
+                      - pageCount
+                      - pageSize
+                      - totalCount
+                required:
+                - exports
+                - pagination
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Exports
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/files/{fileId}:
+    get:
+      operationId: downloadFile
+      summary: Download file by ID
+      description: Download PDF or XML file by ID.
+      parameters:
+      - name: fileId
+        required: true
+        in: path
+        description: File ID
+        schema:
+          type: string
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      security:
+      - bearer: []
+      tags:
+      - Exports
+  /v1/organizations/{organizationId}/exports/{exportId}:
+    get:
+      operationId: getExport
+      summary: Get an Export
+      description: Get an Export details by ID.
+      parameters:
+      - name: exportId
+        required: true
+        in: path
+        description: The export ID.
+        example: 86e29aff-ba75-492d-85f6-80d802c4fe69
+        schema:
+          type: string
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The unique identifier of the export.
+                    example: 86e29aff-ba75-492d-85f6-80d802c4fe69
+                  postingsCount:
+                    type: number
+                    description: The number of postings in the export.
+                    example: 10
+                  status:
+                    type: string
+                    description: 'Current status of the export.<br><br>EXPORTING: The export processing is still in progress.<br>EXPORTED: The export is completed.<br>FAILED: The export failed.<br>PARTIALLY_EXPORTED: The export was partially successful.'
+                    example: EXPORTED
+                    enum:
+                    - EXPORTING
+                    - EXPORTED
+                    - FAILED
+                    - PARTIALLY_EXPORTED
+                  createdAt:
+                    format: date-time
+                    type: string
+                    description: The date and time when the export was initiated.
+                    example: '2024-01-01T12:00:00Z'
+                required:
+                - id
+                - postingsCount
+                - status
+                - createdAt
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Exports
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/exports/{exportId}/postings:
+    get:
+      operationId: getExportPostings
+      summary: Get a list of Export Postings
+      description: Get a list of Postings that were exported in the Export.
+      parameters:
+      - name: exportId
+        required: true
+        in: path
+        description: The export ID.
+        example: 86e29aff-ba75-492d-85f6-80d802c4fe69
+        schema:
+          type: string
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  successfulPostings:
+                    type: array
+                    description: Successfully exported invoices
+                    items:
+                      oneOf:
+                      - title: Invoice Posting
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of Entity
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          entityGuid:
+                            type: string
+                            description: Candis Unique identifier of the posting.
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          status:
+                            type: string
+                            description: 'Status of the posting.<br>Exported: The posting was successfully exported.'
+                            enum:
+                            - EXPORTED
+                            example: EXPORTED
+                          amount:
+                            description: Total Amount information of the posting.
+                            allOf:
+                            - type: object
+                              properties:
+                                value:
+                                  type: number
+                                  description: Total amount of the posting.
+                                  example: 100
+                                currencyCode:
+                                  type: string
+                                  description: ISO 4217 currency code.
+                                  example: EUR
+                              required:
+                              - value
+                              - currencyCode
+                          contact:
+                            description: Contact information.
+                            allOf:
+                            - type: object
+                              properties:
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Accounts payable number.
+                                  example: '7000001'
+                                accountsReceivableNumber:
+                                  type: string
+                                  description: Accounts receivable number.
+                                  example: '7000004'
+                                name:
+                                  type: string
+                                  description: Name of the contact.
+                                  example: John Doe
+                          invoiceId:
+                            type: string
+                            description: Invoice ID / Invoice Number mentioned on the invoice.
+                            example: '1234'
+                          invoiceDate:
+                            type: string
+                            format: date-time
+                            description: Date of the posting.
+                            example: '2024-01-01T00:00:00Z'
+                          purchaseOrder:
+                            description: Purchase Order Information.
+                            allOf:
+                            - type: object
+                              properties:
+                                orderNumber:
+                                  type: string
+                                  description: Purchase Order number attached to the Posting.
+                                  example: PO-001
+                              required:
+                              - orderNumber
+                          files:
+                            description: Downloadable files information.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: File id
+                                  example: 60ace9d227d897fc64add503
+                                url:
+                                  type: string
+                                  description: Download URL of the file.
+                                  example: https://api.candis.io/v1/organization/org-id/files/60ace9d227d897fc64add503
+                                name:
+                                  type: string
+                                  description: Name of the file.
+                                  example: invoice.pdf
+                                type:
+                                  type: string
+                                  enum:
+                                  - AUDIT_TRAIL
+                                  - ATTACHMENT
+                                  - INVOICE
+                                  - XRECHNUNG
+                                  description: 'Type of the file.<br><br>AUDIT_TRAIL: Contains all the activity related to processing of the posting.<br>ATTACHMENT: Contains additional information related to the posting.<br>INVOICE: The invoice pdf document.<br>XRECHNUNG: The XRechnung xml document.'
+                                  example: INVOICE
+                              required:
+                              - id
+                              - url
+                              - name
+                              - type
+                          url:
+                            type: string
+                            description: Candis URL of the posting.
+                            example: https://my.candis.io/alpha-organization/archive/e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          accountingArea:
+                            description: Accounting Area Information.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Accounting Area attached to the Posting.
+                                  example: AA-001
+                                description:
+                                  type: string
+                                  description: Description of Accounting Area attached to the Posting.
+                                  example: Accounting Area 1
+                              required:
+                              - name
+                              - description
+                          deliveryDate:
+                            type: string
+                            format: date-time
+                            description: Date of the posting.
+                            example: '2024-01-01T00:00:00Z'
+                          invoiceFormat:
+                            type: string
+                            enum:
+                            - REGULAR
+                            - XRECHNUNG
+                            - ZUGFERD
+                            description: 'Format of the invoice.<br>REGULAR: Regular invoice format.<br>XRECHNUNG: XRechnung invoice format.<br>ZUGFERD: ZUGFeRD invoice format.'
+                            example: REGULAR
+                          dueDate:
+                            type: string
+                            format: date-time
+                            description: Due date of the booking.
+                            example: '2024-01-01T00:00:00Z'
+                          paymentCondition:
+                            description: Payment Condition Details
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Payment Condition Name
+                                  example: Credit Card Discount
+                                  nullable: true
+                                discountPercentage:
+                                  type: number
+                                  description: Discount Percentage
+                                  example: 10
+                                  nullable: true
+                                discountPaymentDate:
+                                  type: string
+                                  format: date-time
+                                  description: Discount Payment Date
+                                  example: '2024-01-01T00:00:00Z'
+                          documentType:
+                            type: string
+                            description: Document type of the Posting.
+                            example: Incoming Invoice, Outgoing Invoice
+                          splitPostings:
+                            description: Split-postings can be a part of a posting. A split-posting contains a specific portion of an invoice, which could be necessary due to the need for a different GLA (General Ledger Account) for an amount or when more than one tax is applicable to an invoice.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                note:
+                                  type: string
+                                  description: Note for the split-posting.
+                                  example: Some note
+                                amount:
+                                  type: number
+                                  description: Amount of the split-posting.
+                                  example: 100
+                                costCenter:
+                                  description: Cost center.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                customCostDimension:
+                                  description: Custom cost dimension.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                bookingKey:
+                                  description: Booking key.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax code.
+                                        example: '9'
+                                    required:
+                                    - taxCode
+                                postingText:
+                                  type: string
+                                  description: Posting text.
+                                  example: Some text
+                                unitPrice:
+                                  type: number
+                                  description: Unit price of the booking.
+                                  example: 10.5
+                                quantity:
+                                  type: number
+                                  description: Quantity of the booking.
+                                  example: 4
+                                netAmount:
+                                  type: number
+                                  description: Net amount of the booking.
+                                  example: 42.02
+                                taxAmount:
+                                  type: number
+                                  description: Tax amount of the booking.
+                                  example: 7.98
+                                type:
+                                  type: string
+                                  description: 'Booking association type. ITEM: Line item booking. ADDITIONAL_DELIVERY_COST: Additional delivery cost booking.'
+                                  example: ITEM
+                                purchaseOrderMetadata:
+                                  description: Purchase order metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      orderNumber:
+                                        type: string
+                                        description: Purchase order number.
+                                        example: PO-001
+                                      lineNumber:
+                                        type: number
+                                        description: Purchase order line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Purchase order item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Purchase order location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Purchase order external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - orderNumber
+                                    - lineNumber
+                                    - itemNumber
+                                goodsReceiptMetadata:
+                                  description: Goods receipt metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      receiptNumber:
+                                        type: string
+                                        description: Goods receipt number.
+                                        example: GR-001
+                                      lineNumber:
+                                        type: number
+                                        description: Goods receipt line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Goods receipt item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Goods receipt location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Goods receipt external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - receiptNumber
+                                    - lineNumber
+                                    - itemNumber
+                                additionalDeliveryCostsMetadata:
+                                  description: Additional delivery costs metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Additional delivery cost code.
+                                        example: FREIGHT
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  type: string
+                                  description: General ledger account.
+                                  example: '8400'
+                              required:
+                              - amount
+                              - generalLedgerAccount
+                          type:
+                            type: string
+                            enum:
+                            - DOCUMENT
+                        required:
+                        - id
+                        - entityGuid
+                        - status
+                        - amount
+                        - contact
+                        - invoiceId
+                        - invoiceDate
+                        - files
+                        - url
+                        - invoiceFormat
+                        - documentType
+                        - splitPostings
+                        - type
+                      - title: Credit Cards Posting
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of Entity
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          entityGuid:
+                            type: string
+                            description: Candis Unique identifier of the posting.
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          status:
+                            type: string
+                            description: 'Status of the posting.<br>Exported: The posting was successfully exported.'
+                            enum:
+                            - EXPORTED
+                            example: EXPORTED
+                          amount:
+                            description: Total Amount information of the posting.
+                            allOf:
+                            - type: object
+                              properties:
+                                value:
+                                  type: number
+                                  description: Total amount of the posting.
+                                  example: 100
+                                currencyCode:
+                                  type: string
+                                  description: ISO 4217 currency code.
+                                  example: EUR
+                              required:
+                              - value
+                              - currencyCode
+                          contact:
+                            description: Contact information.
+                            allOf:
+                            - type: object
+                              properties:
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Accounts payable number.
+                                  example: '7000001'
+                                accountsReceivableNumber:
+                                  type: string
+                                  description: Accounts receivable number.
+                                  example: '7000004'
+                                name:
+                                  type: string
+                                  description: Name of the contact.
+                                  example: John Doe
+                          invoiceId:
+                            type: string
+                            description: Invoice ID / Invoice Number mentioned on the invoice or Transaction number for posting without invoice
+                            example: '1234'
+                          invoiceDate:
+                            type: string
+                            format: date-time
+                            description: Date of the posting.
+                            example: '2024-01-01T00:00:00Z'
+                          purchaseOrder:
+                            description: Purchase Order Information.
+                            allOf:
+                            - type: object
+                              properties:
+                                orderNumber:
+                                  type: string
+                                  description: Purchase Order number attached to the Posting.
+                                  example: PO-001
+                              required:
+                              - orderNumber
+                          files:
+                            description: Downloadable files information.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: File id
+                                  example: 60ace9d227d897fc64add503
+                                url:
+                                  type: string
+                                  description: Download URL of the file.
+                                  example: https://api.candis.io/v1/organization/org-id/files/60ace9d227d897fc64add503
+                                name:
+                                  type: string
+                                  description: Name of the file.
+                                  example: invoice.pdf
+                                type:
+                                  type: string
+                                  enum:
+                                  - AUDIT_TRAIL
+                                  - ATTACHMENT
+                                  - INVOICE
+                                  - XRECHNUNG
+                                  description: 'Type of the file.<br><br>AUDIT_TRAIL: Contains all the activity related to processing of the posting.<br>ATTACHMENT: Contains additional information related to the posting.<br>INVOICE: The invoice pdf document.<br>XRECHNUNG: The XRechnung xml document.'
+                                  example: INVOICE
+                              required:
+                              - id
+                              - url
+                              - name
+                              - type
+                          url:
+                            type: string
+                            description: Candis URL of the posting.
+                            example: https://my.candis.io/alpha-organization/archive/e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          accountingArea:
+                            description: Accounting Area Information.
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Accounting Area attached to the Posting.
+                                  example: AA-001
+                                description:
+                                  type: string
+                                  description: Description of Accounting Area attached to the Posting.
+                                  example: Accounting Area 1
+                              required:
+                              - name
+                              - description
+                          deliveryDate:
+                            type: string
+                            format: date-time
+                            description: Date of the posting.
+                            example: '2024-01-01T00:00:00Z'
+                          invoiceFormat:
+                            type: string
+                            enum:
+                            - REGULAR
+                            - XRECHNUNG
+                            - ZUGFERD
+                            description: 'Format of the invoice.<br>REGULAR: Regular invoice format.<br>XRECHNUNG: XRechnung invoice format.<br>ZUGFERD: ZUGFeRD invoice format.'
+                            example: REGULAR
+                          dueDate:
+                            type: string
+                            format: date-time
+                            description: Due date of the booking.
+                            example: '2024-01-01T00:00:00Z'
+                          paymentCondition:
+                            description: Payment Condition Details
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Payment Condition Name
+                                  example: Credit Card Discount
+                                  nullable: true
+                                discountPercentage:
+                                  type: number
+                                  description: Discount Percentage
+                                  example: 10
+                                  nullable: true
+                                discountPaymentDate:
+                                  type: string
+                                  format: date-time
+                                  description: Discount Payment Date
+                                  example: '2024-01-01T00:00:00Z'
+                          documentType:
+                            type: string
+                            description: Document type of the Posting.
+                            example: Incoming Invoice, Outgoing Invoice
+                          splitPostings:
+                            description: Split-postings can be a part of a posting. A split-posting contains a specific portion of an invoice, which could be necessary due to the need for a different GLA (General Ledger Account) for an amount or when more than one tax is applicable to an invoice.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                note:
+                                  type: string
+                                  description: Note for the split-posting.
+                                  example: Some note
+                                amount:
+                                  type: number
+                                  description: Amount of the split-posting.
+                                  example: 100
+                                costCenter:
+                                  description: Cost center.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                customCostDimension:
+                                  description: Custom cost dimension.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                bookingKey:
+                                  description: Booking key.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax code.
+                                        example: '9'
+                                    required:
+                                    - taxCode
+                                postingText:
+                                  type: string
+                                  description: Posting text.
+                                  example: Some text
+                                unitPrice:
+                                  type: number
+                                  description: Unit price of the booking.
+                                  example: 10.5
+                                quantity:
+                                  type: number
+                                  description: Quantity of the booking.
+                                  example: 4
+                                netAmount:
+                                  type: number
+                                  description: Net amount of the booking.
+                                  example: 42.02
+                                taxAmount:
+                                  type: number
+                                  description: Tax amount of the booking.
+                                  example: 7.98
+                                type:
+                                  type: string
+                                  description: 'Booking association type. ITEM: Line item booking. ADDITIONAL_DELIVERY_COST: Additional delivery cost booking.'
+                                  example: ITEM
+                                purchaseOrderMetadata:
+                                  description: Purchase order metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      orderNumber:
+                                        type: string
+                                        description: Purchase order number.
+                                        example: PO-001
+                                      lineNumber:
+                                        type: number
+                                        description: Purchase order line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Purchase order item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Purchase order location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Purchase order external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - orderNumber
+                                    - lineNumber
+                                    - itemNumber
+                                goodsReceiptMetadata:
+                                  description: Goods receipt metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      receiptNumber:
+                                        type: string
+                                        description: Goods receipt number.
+                                        example: GR-001
+                                      lineNumber:
+                                        type: number
+                                        description: Goods receipt line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Goods receipt item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Goods receipt location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Goods receipt external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - receiptNumber
+                                    - lineNumber
+                                    - itemNumber
+                                additionalDeliveryCostsMetadata:
+                                  description: Additional delivery costs metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Additional delivery cost code.
+                                        example: FREIGHT
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  type: string
+                                  description: General ledger account.
+                                  example: '8400'
+                              required:
+                              - amount
+                              - generalLedgerAccount
+                          type:
+                            type: string
+                            enum:
+                            - DOCUMENT
+                            - CARD_TRANSACTION
+                            - CARD_SETTLEMENT
+                          creditCardSettings:
+                            type: object
+                            properties:
+                              bookingAccount:
+                                type: string
+                                nullable: true
+                              transitAccount:
+                                type: string
+                                nullable: true
+                          payment:
+                            type: object
+                            properties:
+                              method:
+                                type: string
+                                enum:
+                                - CARD_TRANSACTION
+                                nullable: true
+                              paidAt:
+                                type: string
+                                format: date-time
+                                example: '2024-01-01T00:00:00Z'
+                        required:
+                        - id
+                        - entityGuid
+                        - status
+                        - amount
+                        - contact
+                        - invoiceId
+                        - invoiceDate
+                        - files
+                        - url
+                        - invoiceFormat
+                        - documentType
+                        - splitPostings
+                        - type
+                        - creditCardSettings
+                      - title: Reimbursement Posting
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier of Entity
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          entityGuid:
+                            type: string
+                            description: Candis Unique identifier of the posting.
+                            example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          status:
+                            type: string
+                            description: 'Status of the posting.<br>Exported: The posting was successfully exported.'
+                            enum:
+                            - EXPORTED
+                            example: EXPORTED
+                          amount:
+                            description: Total Amount information of the posting.
+                            allOf:
+                            - type: object
+                              properties:
+                                value:
+                                  type: number
+                                  description: Total amount of the posting.
+                                  example: 100
+                                currencyCode:
+                                  type: string
+                                  description: ISO 4217 currency code.
+                                  example: EUR
+                              required:
+                              - value
+                              - currencyCode
+                          invoiceId:
+                            type: string
+                            description: Invoice ID / Invoice Number mentioned on the invoice.
+                            example: '1234'
+                          invoiceDate:
+                            type: string
+                            format: date-time
+                            description: Date of the posting.
+                            example: '2024-01-01T00:00:00Z'
+                          files:
+                            description: Downloadable files information.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: File id
+                                  example: 60ace9d227d897fc64add503
+                                url:
+                                  type: string
+                                  description: Download URL of the file.
+                                  example: https://api.candis.io/v1/organization/org-id/files/60ace9d227d897fc64add503
+                                name:
+                                  type: string
+                                  description: Name of the file.
+                                  example: invoice.pdf
+                                type:
+                                  type: string
+                                  enum:
+                                  - AUDIT_TRAIL
+                                  - ATTACHMENT
+                                  - INVOICE
+                                  - XRECHNUNG
+                                  description: 'Type of the file.<br><br>AUDIT_TRAIL: Contains all the activity related to processing of the posting.<br>ATTACHMENT: Contains additional information related to the posting.<br>INVOICE: The invoice pdf document.<br>XRECHNUNG: The XRechnung xml document.'
+                                  example: INVOICE
+                              required:
+                              - id
+                              - url
+                              - name
+                              - type
+                          url:
+                            type: string
+                            description: Candis URL of the posting.
+                            example: https://my.candis.io/alpha-organization/archive/e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                          splitPostings:
+                            description: Split-postings can be a part of a posting. A split-posting contains a specific portion of an invoice, which could be necessary due to the need for a different GLA (General Ledger Account) for an amount or when more than one tax is applicable to an invoice.
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                note:
+                                  type: string
+                                  description: Note for the split-posting.
+                                  example: Some note
+                                amount:
+                                  type: number
+                                  description: Amount of the split-posting.
+                                  example: 100
+                                costCenter:
+                                  description: Cost center.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                costObject:
+                                  description: Cost object.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                customCostDimension:
+                                  description: Custom cost dimension.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Code of the cost center.
+                                        example: CC-123
+                                    required:
+                                    - code
+                                bookingKey:
+                                  description: Booking key.
+                                  allOf:
+                                  - type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description: Tax code.
+                                        example: '9'
+                                    required:
+                                    - taxCode
+                                postingText:
+                                  type: string
+                                  description: Posting text.
+                                  example: Some text
+                                unitPrice:
+                                  type: number
+                                  description: Unit price of the booking.
+                                  example: 10.5
+                                quantity:
+                                  type: number
+                                  description: Quantity of the booking.
+                                  example: 4
+                                netAmount:
+                                  type: number
+                                  description: Net amount of the booking.
+                                  example: 42.02
+                                taxAmount:
+                                  type: number
+                                  description: Tax amount of the booking.
+                                  example: 7.98
+                                type:
+                                  type: string
+                                  description: 'Booking association type. ITEM: Line item booking. ADDITIONAL_DELIVERY_COST: Additional delivery cost booking.'
+                                  example: ITEM
+                                purchaseOrderMetadata:
+                                  description: Purchase order metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      orderNumber:
+                                        type: string
+                                        description: Purchase order number.
+                                        example: PO-001
+                                      lineNumber:
+                                        type: number
+                                        description: Purchase order line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Purchase order item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Purchase order location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Purchase order external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - orderNumber
+                                    - lineNumber
+                                    - itemNumber
+                                goodsReceiptMetadata:
+                                  description: Goods receipt metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      receiptNumber:
+                                        type: string
+                                        description: Goods receipt number.
+                                        example: GR-001
+                                      lineNumber:
+                                        type: number
+                                        description: Goods receipt line number.
+                                        example: 1
+                                      itemNumber:
+                                        type: string
+                                        description: Goods receipt item number.
+                                        example: '1000'
+                                      locationCode:
+                                        type: string
+                                        description: Goods receipt location code.
+                                        example: LOC-001
+                                        nullable: true
+                                      externalLineId:
+                                        type: string
+                                        description: Goods receipt external line ID.
+                                        example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
+                                        nullable: true
+                                    required:
+                                    - receiptNumber
+                                    - lineNumber
+                                    - itemNumber
+                                additionalDeliveryCostsMetadata:
+                                  description: Additional delivery costs metadata associated with the booking.
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                        description: Additional delivery cost code.
+                                        example: FREIGHT
+                                    required:
+                                    - code
+                                generalLedgerAccount:
+                                  type: string
+                                  description: General ledger account.
+                                  example: '8400'
+                              required:
+                              - amount
+                              - generalLedgerAccount
+                          type:
+                            type: string
+                            enum:
+                            - REIMBURSEMENT_ITEM
+                            description: Type of the posting entity
+                            example: REIMBURSEMENT_ITEM
+                          reason:
+                            type: string
+                            description: Reason for the reimbursement
+                            example: Business trip to Berlin
+                          reimbursementType:
+                            type: string
+                            enum:
+                            - GENERAL_EXPENSE
+                            - HOSPITALITY_EXPENSE
+                            - PER_DIEM
+                            - MILEAGE
+                            description: Type of the reimbursement item
+                            example: GENERAL_EXPENSE
+                          employee:
+                            description: Employee information associated with the reimbursement
+                            allOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Employee name
+                                accountsPayableNumber:
+                                  type: string
+                                  description: Employee account payable number
+                              required:
+                              - name
+                          reimbursementDate:
+                            type: string
+                            format: date-time
+                            description: Date of the reimbursement
+                            example: '2024-01-01T00:00:00Z'
+                          reimbursementCase:
+                            description: Reimbursement case information
+                            allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                title:
+                                  type: string
+                              required:
+                              - id
+                              - title
+                        required:
+                        - id
+                        - entityGuid
+                        - status
+                        - amount
+                        - invoiceId
+                        - invoiceDate
+                        - files
+                        - url
+                        - splitPostings
+                        - type
+                        - reason
+                        - reimbursementType
+                        - employee
+                        - reimbursementDate
+                        - reimbursementCase
+                  failedPostings:
+                    description: Failed entities
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the entity
+                          example: '1234'
+                        entityId:
+                          type: string
+                          description: Identifier of the entity (e.g., invoice ID, transaction ID)
+                          example: '1234'
+                        errorCode:
+                          type: string
+                          description: Candis error code
+                          example: EXPORTABLE_ENTITY_NOT_FOUND
+                      required:
+                      - id
+                      - errorCode
+                required:
+                - successfulPostings
+                - failedPostings
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Exports
+      security:
+      - bearer: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.

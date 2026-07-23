@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data Organizations API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Organizations
+paths:
+  /v1/organizations/info:
+    get:
+      operationId: getOrganization
+      summary: Get Organization
+      description: Get Organization details in which the User is a member.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Candis unique identifier of the organization.
+                    example: alpha-organization
+                  name:
+                    type: string
+                    description: Name of the organization.
+                    example: Alpha Organization
+                required:
+                - id
+                - name
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      security:
+      - bearer: []
+      tags:
+      - Organizations
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.

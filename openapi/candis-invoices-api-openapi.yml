@@ -1,0 +1,682 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data Invoices API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Invoices
+  description: Read and update invoice metadata.
+paths:
+  /v1/organizations/{organizationId}/invoices:
+    get:
+      operationId: listInvoices
+      summary: List invoices of the organization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The offset of the first element in the list.
+        example: 0
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of elements to return.
+        example: 50
+        schema:
+          minimum: 1
+          default: 50
+          type: number
+      - name: status
+        required: false
+        in: query
+        description: Current status of the invoice. Comma separated values.
+        example: APPROVED
+        schema:
+          enum:
+          - APPROVED
+          - EXPORTED
+          type: string
+      - name: invoiceDateFrom
+        required: false
+        in: query
+        description: From date and time when the invoice was issued.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: invoiceDateTo
+        required: false
+        in: query
+        description: To date and time when the invoice was issued.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: updatedDateFrom
+        required: false
+        in: query
+        description: From date and time when the invoice was updated.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      - name: updatedDateTo
+        required: false
+        in: query
+        description: To date and time when the invoice was updated.
+        example: '2024-01-01T12:00:00Z'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invoices:
+                    description: Records of invoices.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the invoice.
+                          example: 8341a018-6196-47cb-8fa2-3ad40983be24
+                        organizationId:
+                          type: string
+                          description: Candis unique identifier of the organization.
+                          example: alpha-organization
+                        status:
+                          type: string
+                          description: Current status of the invoice.
+                          example: APPROVED
+                          enum:
+                          - APPROVED
+                          - EXPORTED
+                        createdAt:
+                          type: string
+                          description: The date and time when the invoice was created.
+                          example: '2024-01-01T12:00:00Z'
+                        updatedAt:
+                          type: string
+                          description: The date and time when the invoice was updated.
+                          example: '2024-01-01T12:00:00Z'
+                        requestedAt:
+                          type: string
+                          description: The date and time when the invoice was requested for approval.
+                          example: '2024-01-01T12:00:00Z'
+                        approvedAt:
+                          type: string
+                          description: The date and time when the invoice was approved.
+                          example: '2024-01-01T12:00:00Z'
+                        amount:
+                          type: object
+                          properties:
+                            value:
+                              type: number
+                              description: Amount
+                              example: 100
+                            currencyCode:
+                              type: string
+                              description: Currency code.
+                              example: EUR
+                        automaticPayment:
+                          type: boolean
+                          description: Automatic payment is enabled or not.
+                          example: false
+                        bankAccount:
+                          type: object
+                          properties:
+                            iban:
+                              type: string
+                              description: IBAN of the bank account.
+                              example: DE89370400440532013000
+                            swiftCode:
+                              type: string
+                              description: SWIFT code of the bank account.
+                              example: COBADEFFXXX
+                        bookings:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              dueDate:
+                                type: string
+                                description: Discount payment date
+                                example: '2022-09-15T22:00:00.000Z'
+                              amount:
+                                type: number
+                                description: Amount of split booking.
+                                example: 2784
+                              costCenter:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                    example: KOST2
+                                  name:
+                                    type: string
+                                    example: booking-1-cs-2-name
+                                required:
+                                - code
+                              costObject:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                    example: KOST2
+                                  name:
+                                    type: string
+                                    example: booking-1-cs-2-name
+                                required:
+                                - code
+                              generalLedgerAccount:
+                                type: object
+                                properties:
+                                  accountCode:
+                                    type: string
+                                    description: General ledger account code
+                                    example: '1100'
+                                  name:
+                                    type: string
+                                    description: General ledger account name
+                                    example: electricity
+                                required:
+                                - accountCode
+                                - name
+                              extraCostInfo:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                    example: KOST2
+                                  name:
+                                    type: string
+                                    example: booking-1-cs-2-name
+                                required:
+                                - code
+                              artistSocialInsuranceCode:
+                                type: string
+                                description: Artist social insurance code.
+                                example: W
+                              bookingKey:
+                                type: object
+                                properties:
+                                  taxCode:
+                                    type: string
+                                    description: Tax Code
+                                    example: '40'
+                                  description:
+                                    type: string
+                                    description: Tax code description
+                                    example: Tax Code 40
+                                required:
+                                - taxCode
+                                - description
+                              vatRate:
+                                type: number
+                                description: Vat rate
+                              note:
+                                type: string
+                                description: Note
+                                example: This is a note.
+                              postingText:
+                                type: string
+                                description: Posting text
+                                example: This is a posting text.
+                              paymentCondition:
+                                type: object
+                                properties:
+                                  discountAmount:
+                                    type: number
+                                    description: Discount amount
+                                    example: 1.56
+                                  discountPaymentDate:
+                                    type: string
+                                    description: Discount payment date
+                                    example: '2022-09-15T22:00:00.000Z'
+                                  discountPercentage:
+                                    type: number
+                                    description: Discount percentage
+                                    example: 12
+                        category:
+                          type: object
+                          properties:
+                            documentType:
+                              type: string
+                              description: Document type.
+                              example: Kasse
+                        contact:
+                          description: Contact information.
+                          allOf:
+                          - type: object
+                            properties:
+                              name:
+                                type: string
+                                description: Contact name
+                                example: John Doe
+                              accountPayableNumber:
+                                type: string
+                                description: Contact payable number
+                                example: K1349234
+                              accountReceivableNumber:
+                                type: string
+                                description: Contact receivable number
+                                example: J1349456
+                        deliveryDate:
+                          type: string
+                          description: The date and time when item was delivered.
+                          example: '2024-01-01T12:00:00Z'
+                        invoiceDate:
+                          type: string
+                          description: The date and time when invoice was issued.
+                          example: '2024-01-01T12:00:00Z'
+                        invoiceId:
+                          type: string
+                          description: Invoice ID / Invoice Number mentioned on the invoice.
+                          example: 2024-INVOICE-123
+                        payment:
+                          description: Payment related information.
+                          allOf:
+                          - type: object
+                            properties:
+                              method:
+                                type: string
+                                enum:
+                                - CARD_TRANSACTION
+                                nullable: true
+                              paidAt:
+                                type: string
+                                format: date-time
+                                example: '2024-01-01T00:00:00Z'
+                        purchaseOrderNumber:
+                          type: string
+                          description: Purchase Order Number
+                          example: PO1234
+                        archiveUrl:
+                          type: string
+                          description: URL to the archive of the document.
+                          example: https://my.candis.io/alpha-organization/archive/6595441163501d8c055d4af0
+                      required:
+                      - id
+                      - organizationId
+                      - status
+                      - createdAt
+                  pagination:
+                    description: Pagination Data providing information and the record count, page size and total count
+                    allOf:
+                    - type: object
+                      properties:
+                        pageCount:
+                          type: number
+                          example: 10
+                          description: This is the total number of pages available with records
+                        pageSize:
+                          type: number
+                          example: 50
+                          description: This is the length of size of the current page
+                        totalCount:
+                          type: number
+                          example: 500
+                          description: This is the total count of export records available
+                      required:
+                      - pageCount
+                      - pageSize
+                      - totalCount
+                required:
+                - pagination
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Invoices
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/invoices/{id}:
+    put:
+      operationId: updateInvoice
+      summary: Update an invoice
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Unique identifier of the invoice.
+        example: 7fe351b8-2313-4158-b386-4511cd64b4d5
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Invoice update payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment:
+                  description: Payment information
+                  allOf:
+                  - type: object
+                    properties:
+                      isPaid:
+                        type: boolean
+                        description: Whether the invoice is paid
+                        example: true
+                      paidAt:
+                        format: date-time
+                        type: string
+                        description: Date when the invoice was paid. Required when isPaid is true.
+                        example: '2023-05-15T12:00:00Z'
+                    required:
+                    - isPaid
+      responses:
+        '204':
+          description: Invoice updated successfully
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Invoices
+      security:
+      - bearer: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.

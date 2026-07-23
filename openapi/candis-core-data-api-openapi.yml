@@ -1,0 +1,1122 @@
+openapi: 3.0.0
+info:
+  title: Candis Core Data API
+  description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
+  version: 1.0.0
+  contact:
+    name: Candis
+    url: https://developer.candis.io/
+  x-apievangelist:
+    method: searched
+    source: Reconstructed from per-operation OpenAPI fragments published in the Candis developer reference (https://developer.candis.io/reference/*) via ReadMe; merged and filtered to Candis /v1/organizations operations by the API Evangelist enrichment pipeline.
+    generated: '2026-07-18'
+servers:
+- url: https://api.candis.io
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Core Data
+  description: 'Import/update master data: general ledger accounts, cost dimensions, additional delivery costs.'
+paths:
+  /v1/organizations/{organizationId}/imports/cost-centers:
+    post:
+      operationId: createCostCenter
+      summary: Create Cost Dimensions
+      description: Receive requests and attempts to create Cost Dimensions in Candis
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                oneOf:
+                - title: Cost Center
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: COST_CENTER
+                      enum:
+                      - COST_CENTER
+                  required:
+                  - code
+                  - name
+                  - type
+                - title: Cost Object
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: COST_OBJECT
+                      enum:
+                      - COST_OBJECT
+                  required:
+                  - code
+                  - name
+                  - type
+                - title: Custom Cost Dimension
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: CUSTOM_COST_DIMENSION
+                      enum:
+                      - CUSTOM_COST_DIMENSION
+                  required:
+                  - code
+                  - name
+                  - type
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: The unique identifier of the import request.
+                    example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                required:
+                - processId
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+    put:
+      operationId: updateCostCenter
+      summary: Update Cost Dimensions
+      description: Receive requests and attempts to update Cost Dimensions in Candis
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                oneOf:
+                - title: Cost Center
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                      nullable: true
+                    isArchived:
+                      type: boolean
+                      description: Flag to deactivate or activate a cost dimension
+                      example: true
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: COST_CENTER
+                      enum:
+                      - COST_CENTER
+                  required:
+                  - code
+                  - type
+                - title: Cost Object
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                      nullable: true
+                    isArchived:
+                      type: boolean
+                      description: Flag to deactivate or activate a cost dimension
+                      example: true
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: COST_OBJECT
+                      enum:
+                      - COST_OBJECT
+                  required:
+                  - code
+                  - type
+                - title: Custom Cost Dimension
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: The unique code of the cost dimension
+                      example: ABC-000
+                    name:
+                      type: string
+                      description: Name of the cost dimension
+                      example: ABC-000
+                      nullable: true
+                    isArchived:
+                      type: boolean
+                      description: Flag to deactivate or activate a cost dimension
+                      example: true
+                    type:
+                      type: string
+                      description: Type of the cost dimension
+                      example: CUSTOM_COST_DIMENSION
+                      enum:
+                      - CUSTOM_COST_DIMENSION
+                  required:
+                  - code
+                  - type
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: The unique identifier of the import request.
+                    example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                required:
+                - processId
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/imports/general-ledger-accounts:
+    post:
+      operationId: createGeneralLedgerAccounts
+      summary: Create General Ledger Accounts
+      description: Receive requests and attempts to create General Ledger Accounts in Candis
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  accountCode:
+                    type: string
+                    description: The unique General Ledger Account Code
+                    example: ABC-000
+                  name:
+                    type: string
+                    description: General Ledger Account Label
+                    example: ABC-000
+                required:
+                - accountCode
+                - name
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: The unique identifier of the import request.
+                    example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                required:
+                - processId
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+    put:
+      operationId: updateGeneralLedgerAccounts
+      summary: Update General Ledger Accounts
+      description: Receive requests and attempts to update General Ledger Accounts in Candis
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  accountCode:
+                    type: string
+                    description: The unique General Ledger Account Code
+                    example: ABC-000
+                  name:
+                    type: string
+                    description: General Ledger Account Label
+                    example: ABC-000
+                    nullable: true
+                  isArchived:
+                    type: boolean
+                    description: Flag to deactivate a General Ledger Account entry
+                    example: true
+                    default: false
+                required:
+                - accountCode
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: The unique identifier of the import request.
+                    example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                required:
+                - processId
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/imports/{processId}:
+    get:
+      operationId: getImportLogs
+      summary: Get Import Logs
+      description: Returns Status Summary on Core data Import Request received
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      - name: processId
+        required: true
+        in: path
+        description: The import Request ID.
+        example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The offset of the first element in the list.
+        example: 0
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of elements to return.
+        example: 50
+        schema:
+          minimum: 1
+          default: 50
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobStatus:
+                    type: string
+                    description: The status of the import job request.
+                    example: PROCESSED
+                    enum:
+                    - PROCESSED
+                    - PROCESSING
+                  events:
+                    description: List of Import Logs.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for the code data
+                          example: ABC-000
+                        processId:
+                          type: string
+                          description: The unique identifier of the import request.
+                          example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                        organizationId:
+                          type: string
+                          description: The organization ID.
+                          example: alpha-organization
+                        status:
+                          type: string
+                          description: The status of the core data entity import.
+                          example: FAILED
+                          enum:
+                          - FAILED
+                          - IMPORTED
+                        importErrors:
+                          type: array
+                          description: 'The Error encountered while trying to process the request.
+
+                            `ACCOUNT_CODE_ALREADY_EXIST` `ACCOUNT_CODE_NOT_EXISTING` `COST_CENTER_ALREADY_EXIST` `COST_CENTER_NOT_EXISTING` `BOOKING_KEY_ALREADY_EXIST` `BOOKING_KEY_NOT_FOUND` `CONTACT_ALREADY_EXIST` `CONTACT_NOT_EXISTING` `DUPLICATE_CONTACT_NAME` `NO_UPDATABLE_INPUT` `PAYMENT_CONDITION_ALREADY_EXIST` `PAYMENT_CONDITION_NOT_FOUND` `PAYMENT_CONDITION_IS_ARCHIVED` `UNKNOWN_ERROR` `INVALID_INPUT` `INVALID_TAX_NUMBER` `INVALID_IBAN`'
+                          example:
+                          - ACCOUNT_CODE_ALREADY_EXIST
+                          items:
+                            type: string
+                            enum:
+                            - ACCOUNT_CODE_ALREADY_EXIST
+                            - ACCOUNT_CODE_NOT_EXISTING
+                            - COST_CENTER_ALREADY_EXIST
+                            - COST_CENTER_NOT_EXISTING
+                            - BOOKING_KEY_ALREADY_EXIST
+                            - BOOKING_KEY_NOT_FOUND
+                            - CONTACT_ALREADY_EXIST
+                            - CONTACT_NOT_EXISTING
+                            - DUPLICATE_CONTACT_NAME
+                            - NO_UPDATABLE_INPUT
+                            - PAYMENT_CONDITION_ALREADY_EXIST
+                            - PAYMENT_CONDITION_NOT_FOUND
+                            - PAYMENT_CONDITION_IS_ARCHIVED
+                            - UNKNOWN_ERROR
+                            - INVALID_INPUT
+                            - INVALID_TAX_NUMBER
+                            - INVALID_IBAN
+                        operation:
+                          type: string
+                          description: The import request operation
+                          example: CREATE
+                          enum:
+                          - CREATE
+                          - UPDATE
+                        createdAt:
+                          format: date-time
+                          type: string
+                          description: The date and time when the import was processed.
+                          example: '2024-01-01T12:00:00Z'
+                      required:
+                      - id
+                      - processId
+                      - organizationId
+                      - status
+                      - operation
+                      - createdAt
+                  pagination:
+                    description: Pagination Data providing information and the record count, page size and total count
+                    allOf:
+                    - type: object
+                      properties:
+                        pageCount:
+                          type: number
+                          example: 10
+                          description: This is the total number of pages available with records
+                        pageSize:
+                          type: number
+                          example: 50
+                          description: This is the length of size of the current page
+                        totalCount:
+                          type: number
+                          example: 500
+                          description: This is the total count of export records available
+                      required:
+                      - pageCount
+                      - pageSize
+                      - totalCount
+                required:
+                - jobStatus
+                - events
+                - pagination
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+  /v1/organizations/{organizationId}/imports/additional-delivery-costs:
+    put:
+      operationId: updateAdditionalDeliveryCost
+      summary: Update Additional Delivery Costs
+      description: Receive requests and attempts to update Additional Delivery Costs in Candis
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: The organization ID.
+        example: alpha-organization
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: The unique code of the additional delivery cost
+                    example: PROD-001
+                  additionalDescription:
+                    type: string
+                    description: Secondary description of the additional delivery cost
+                    example: Type 123
+                    nullable: true
+                  generalLedgerAccount:
+                    type: string
+                    description: General Ledger (GL) account code
+                    example: '5000'
+                    nullable: true
+                  taxCode:
+                    type: string
+                    description: Candis tax code
+                    example: VAT19
+                    nullable: true
+                  costCenter:
+                    type: string
+                    description: Cost center code (DIM 1)
+                    example: CC-001
+                    nullable: true
+                  costObject:
+                    type: string
+                    description: Cost object code (DIM 2)
+                    example: OBJ200
+                    nullable: true
+                  customCostDimension:
+                    type: string
+                    description: Custom cost dimension code (DIM 3)
+                    example: Berlin
+                    nullable: true
+                  projectCode:
+                    type: string
+                    description: Project code (optional, not yet supported for BC365)
+                    example: PROJ-2024
+                    nullable: true
+                  isArchived:
+                    type: boolean
+                    description: Archive status (soft delete flag)
+                    example: false
+                    default: false
+                  erpData:
+                    description: ERP data
+                    allOf:
+                    - type: object
+                      properties:
+                        system:
+                          type: string
+                          description: ERP system
+                        externalId:
+                          type: string
+                          description: External ID of the additional delivery cost in the ERP system
+                          example: 67890-223421-21312-123214
+                        createdAt:
+                          type: string
+                          description: Creation timestamp in the ERP system
+                          example: '2024-01-15T09:30:00Z'
+                          nullable: true
+                        updatedAt:
+                          type: string
+                          description: Last update timestamp in the ERP system
+                          example: '2024-06-20T14:45:00Z'
+                          nullable: true
+                      required:
+                      - system
+                      - externalId
+                  description:
+                    type: string
+                    description: Primary description of the additional delivery cost
+                    example: FREIGHT
+                    nullable: true
+                required:
+                - code
+                - erpData
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: The unique identifier of the import request.
+                    example: 9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031
+                required:
+                - processId
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                  errors:
+                    description: This is an optional output that can provide more details about the input parameters that may have caused an issue.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          description: This identifies the index of the payload that has an issue.
+                        property:
+                          type: string
+                          description: This identifies the parameter that has an issue.
+                        messages:
+                          description: This provides more details about the parameter that has an issue.
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - property
+                      - messages
+                required:
+                - errorCode
+                - message
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description: The Error Code assigned to the issue encountered
+                    enum:
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - BAD_REQUEST
+                    - SERVICE_UNAVAILABLE
+                    - INTERNAL_SERVER_ERROR
+                    - MISSING_REQUESTER_ID
+                    - BAD_INPUT
+                    - NOT_FOUND
+                    - EXPORTABLE_POSTINGS_NOT_FOUND
+                    - TOO_MANY_REQUEST
+                    - FAILED_TO_FETCH_DOWNLOAD_URL
+                    - FILE_NOT_FOUND
+                  message:
+                    type: string
+                    description: Description about the issue encountered
+                  requestId:
+                    type: string
+                    description: This is the unique identifier for the request.
+                required:
+                - errorCode
+                - message
+      tags:
+      - Core Data
+      security:
+      - bearer: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth2 access token issued by the Candis authorization server (Keycloak realm 'candis') sent as a Bearer token. Obtain via the OAuth2 authorization code or token-exchange flow at https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token.
