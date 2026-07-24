@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+source: live probe of Candis host /.well-known/ discovery surface
+hosts:
+- host: https://id.my.candis.io/auth/realms/candis
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: candis-openid-configuration.json
+    note: OpenID Connect discovery document for the Candis Keycloak realm (issuer https://id.my.candis.io/auth/realms/candis).
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: RFC 8414 OAuth 2.0 Authorization Server Metadata (Keycloak; equivalent content to the OIDC discovery document). Not saved separately.
+- host: https://developer.candis.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+- host: https://www.candis.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+notes: >-
+  my.candis.io returns HTTP 200 (SPA shell) for all /.well-known/ paths, so those are
+  not treated as real discovery documents. The only genuine well-known surface is the
+  Keycloak OIDC/OAuth authorization-server metadata on id.my.candis.io. No
+  api-catalog, ai-plugin.json, or RFC 9116 security.txt is published.

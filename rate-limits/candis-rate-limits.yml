@@ -1,0 +1,15 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.candis.io/docs/rate-limiting-policy
+scope: per connected organization
+limits:
+- limit_count: 500
+  window: minute
+  applies_to: all requests on behalf of a connected organization (aggregated across clients)
+exceeded:
+  status: 429
+  retry_after_header: true
+guidance:
+- Implement exponential backoff on 429 responses.
+- Batch requests where possible; avoid unnecessary calls.
+- Monitor per-organization request volume to stay under the limit.

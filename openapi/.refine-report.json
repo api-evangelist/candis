@@ -1,0 +1,24 @@
+{
+  "provider": "candis",
+  "sources": [
+    "candis-core-data-api-openapi.yml",
+    "candis-exports-api-openapi.yml",
+    "candis-invoices-api-openapi.yml",
+    "candis-organizations-api-openapi.yml",
+    "candis-purchase-requests-api-openapi.yml",
+    "candis-reimbursements-api-openapi.yml"
+  ],
+  "outputs": [
+    "candis-core-data-api-openapi.yml",
+    "candis-exports-api-openapi.yml",
+    "candis-invoices-api-openapi.yml",
+    "candis-organizations-api-openapi.yml",
+    "candis-purchase-requests-api-openapi.yml",
+    "candis-reimbursements-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

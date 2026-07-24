@@ -1,0 +1,73 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/candis-openapi.json
+notes: >-
+  Entity-relationship graph derived from the reconstructed Candis OpenAPI path
+  structure and id-reference path parameters (organizationId, exportId, fileId,
+  processId). All resources are scoped to a connected organization.
+entities:
+- name: Organization
+  key: organizationId
+  root: true
+  description: The connected Candis organization; parent scope of all resources.
+- name: Export
+  key: exportId
+  description: An export of approved postings (DOCUMENT, REIMBURSEMENT_ITEM, or CARD_TRANSACTION) to an accounting/ERP system. Status starts EXPORTING.
+- name: Posting
+  description: A booking/posting line included in an export (split postings carry ITEM vs supplementary-charge types plus three-way-match metadata).
+- name: File
+  key: fileId
+  description: A downloadable export artifact (PDF or XML).
+- name: GeneralLedgerAccount
+  description: Master core-data general ledger account (contact name + accounts-payable number mandatory).
+- name: CostDimension
+  description: Cost centers and cost objects imported as master core data.
+- name: AdditionalDeliveryCost
+  description: Supplementary delivery charges (freight, handling) linkable to invoices during approval.
+- name: Invoice
+  key: id
+  description: Invoice metadata (read + update).
+- name: ReimbursementItem
+  description: Reimbursement item metadata (read-only).
+- name: PurchaseRequest
+  description: Purchase request metadata (read-only, beta).
+- name: ImportProcess
+  key: processId
+  description: A core-data import request; exposes status/logs.
+relationships:
+- from: Organization
+  type: has_many
+  to: Export
+  via: organizationId
+- from: Organization
+  type: has_many
+  to: Invoice
+  via: organizationId
+- from: Organization
+  type: has_many
+  to: ReimbursementItem
+  via: organizationId
+- from: Organization
+  type: has_many
+  to: PurchaseRequest
+  via: organizationId
+- from: Organization
+  type: has_many
+  to: GeneralLedgerAccount
+  via: organizationId
+- from: Organization
+  type: has_many
+  to: CostDimension
+  via: organizationId
+- from: Export
+  type: has_many
+  to: Posting
+  via: exportId
+- from: Export
+  type: has_many
+  to: File
+  via: fileId
+- from: ImportProcess
+  type: has_many
+  to: ImportLog
+  via: processId

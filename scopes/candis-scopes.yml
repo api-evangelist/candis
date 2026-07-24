@@ -1,0 +1,68 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.candis.io/docs/access-token-scopes
+docs: https://developer.candis.io/docs/access-token-scopes
+oidc_discovery: https://id.my.candis.io/auth/realms/candis/.well-known/openid-configuration
+schemes:
+- name: oauth2
+  source: https://developer.candis.io/docs/how-to-authenticate
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/auth
+    tokenUrl: https://id.my.candis.io/auth/realms/candis/protocol/openid-connect/token
+notes: >-
+  Scopes are requested as a space-delimited value in the OAuth scope parameter, e.g.
+  "scope=offline_access core_data exports". The exports and core_data scopes are marked
+  experimental (strict validation not yet enforced). email and profile are core scopes
+  enabled by default and need not be requested explicitly.
+scopes:
+- scope: exports
+  description: Access to the Export API (create/read exports and exported postings, download export files).
+  status: experimental
+  flows: [authorizationCode]
+- scope: core_data
+  description: Access to the Core Data API (import/update general ledger accounts, cost dimensions, additional delivery costs, contacts).
+  status: experimental
+  flows: [authorizationCode]
+- scope: offline_access
+  description: Issues long-lived refresh tokens so token exchanges remain valid for an extended period (~6-24 months) without re-login; for long-running/background services.
+  flows: [authorizationCode, clientCredentials]
+- scope: service_account
+  description: Service-account (client-credentials) scope for machine-to-machine access.
+  flows: [clientCredentials]
+- scope: openid
+  description: Standard OpenID Connect scope (ID token).
+  flows: [authorizationCode]
+- scope: email
+  description: User email claim. Core scope, enabled by default.
+  default: true
+- scope: profile
+  description: User profile claims. Core scope, enabled by default.
+  default: true
+- scope: address
+  description: User address claims (OIDC).
+- scope: phone
+  description: User phone claims (OIDC).
+- scope: roles
+  description: Realm/client role claims (Keycloak).
+- scope: acr
+  description: Authentication Context Class Reference (OIDC).
+- scope: microprofile-jwt
+  description: MicroProfile JWT claims (Keycloak).
+- scope: web-origins
+  description: Allowed web origins claim (Keycloak).
+scopes_supported_from_discovery:
+- openid
+- basic
+- service_account
+- acr
+- microprofile-jwt
+- offline_access
+- core_data
+- roles
+- address
+- exports
+- phone
+- web-origins
+- email
+- profile

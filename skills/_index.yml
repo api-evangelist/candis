@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/candis-openapi.json + conventions/candis-conventions.yml
+skills:
+- file: candis-export-approved-invoices.md
+  name: Export approved invoices and download the files
+  api: openapi/candis-openapi.json
+  operations: [createExport, getExport, getExportPostings, downloadFile]
+- file: candis-import-core-data.md
+  name: Import and update master core data (idempotent upsert)
+  api: openapi/candis-openapi.json
+  operations: [createGeneralLedgerAccounts, updateGeneralLedgerAccounts, createCostCenter, updateCostCenter, getImportLogs]

@@ -1,0 +1,71 @@
+generated: '2026-07-18'
+method: searched
+status: published
+source: https://developer.candis.io/mcp-server
+server:
+  name: candis
+  transport: http
+  protocol: streamable-http
+  url: https://developer.candis.io/mcp
+  hosted_by: ReadMe (developer.candis.io documentation project)
+  official: true
+  authentication: >-
+    Candis OAuth2 access token (Authorization: Bearer). The MCP server proxies the
+    documented Candis API operations, which require an organization-scoped OAuth token.
+client_config:
+  mcpServers:
+    candis:
+      url: https://developer.candis.io/mcp
+tools_source: >-
+  ReadMe generates one MCP tool per operation in the Candis API reference. The
+  candidate tool set below mirrors the reconstructed OpenAPI operations
+  (openapi/candis-openapi.json); confirm exact tool names against the live server.
+tools:
+- name: createExport
+  description: Create an export of approved invoices/postings.
+  source_operation: openapi/candis-openapi.json#createExport
+- name: getExports
+  description: List past exports in the organization.
+  source_operation: openapi/candis-openapi.json#getExports
+- name: getExport
+  description: Get an export's details by ID.
+  source_operation: openapi/candis-openapi.json#getExport
+- name: getExportPostings
+  description: List postings that were exported in an export.
+  source_operation: openapi/candis-openapi.json#getExportPostings
+- name: downloadFile
+  description: Download an export PDF or XML file by ID.
+  source_operation: openapi/candis-openapi.json#downloadFile
+- name: getOrganization
+  description: Get details of the connected organization.
+  source_operation: openapi/candis-openapi.json#getOrganization
+- name: createGeneralLedgerAccounts
+  description: Create general ledger accounts in Candis.
+  source_operation: openapi/candis-openapi.json#createGeneralLedgerAccounts
+- name: updateGeneralLedgerAccounts
+  description: Update general ledger accounts in Candis.
+  source_operation: openapi/candis-openapi.json#updateGeneralLedgerAccounts
+- name: createCostCenter
+  description: Create cost dimensions (cost centers/objects) in Candis.
+  source_operation: openapi/candis-openapi.json#createCostCenter
+- name: updateCostCenter
+  description: Update cost dimensions in Candis.
+  source_operation: openapi/candis-openapi.json#updateCostCenter
+- name: updateAdditionalDeliveryCost
+  description: Update additional delivery costs in Candis.
+  source_operation: openapi/candis-openapi.json#updateAdditionalDeliveryCost
+- name: getImportLogs
+  description: Get status summary/logs for a core-data import request.
+  source_operation: openapi/candis-openapi.json#getImportLogs
+- name: listInvoices
+  description: List invoices of the organization.
+  source_operation: openapi/candis-openapi.json#listInvoices
+- name: updateInvoice
+  description: Update an invoice.
+  source_operation: openapi/candis-openapi.json#updateInvoice
+- name: listReimbursementItems
+  description: List reimbursement items of the organization.
+  source_operation: openapi/candis-openapi.json#listReimbursementItems
+- name: listPurchaseRequests
+  description: List purchase requests of the organization.
+  source_operation: openapi/candis-openapi.json#listPurchaseRequests

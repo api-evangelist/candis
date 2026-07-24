@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.candis.io/changelog
+scheme: dated-entries
+date_precision: approximate
+date_note: >-
+  The Candis changelog displays relative timestamps ("4 months ago"), not absolute
+  dates. Dates below are approximate months derived from those relative labels as of
+  2026-07-18 and should be treated as such.
+current_focus: Three-Way Match (invoice ↔ purchase order ↔ goods receipt matching)
+entries:
+- title: Three-Way Match
+  date_approx: '2026-03'
+  url: https://developer.candis.io/changelog/three-way-match
+  type: addition
+  highlights:
+  - Match invoices against purchase orders and goods receipts before export.
+  - Import/update purchase orders and goods receipts from the ERP (idempotent by order number).
+  - Import/update additional delivery costs (freight, handling) linked during approval.
+  - Exported split postings gain purchaseOrderMetadata, goodsReceiptMetadata, additionalDeliveryCostsMetadata and a type field (ITEM vs supplementary charge).
+- title: New Purchase Requests API (beta)
+  date_approx: '2026-02'
+  url: https://developer.candis.io/changelog/new-purchase-requests-api-beta
+  type: addition
+  highlights:
+  - New Purchase Requests Data API to list an organization's purchase requests (beta).
+- title: New List Reimbursement Items Endpoint
+  date_approx: '2025-12'
+  url: https://developer.candis.io/changelog/new-list-reimbursement-items-endpoint
+  type: addition
+  highlights:
+  - New endpoint to list reimbursement items of the organization.
+- title: Create Cost Centers and Cost Objects
+  date_approx: '2025-01'
+  url: https://developer.candis.io/changelog/create-cost-centers-and-cost-objects
+  type: addition
+  highlights:
+  - Core Data API support for creating/updating cost dimensions (cost centers and cost objects).
+- title: Get list of Export Postings
+  date_approx: '2025-01'
+  url: https://developer.candis.io/changelog/get-list-of-export-postings-update
+  type: addition
+  highlights:
+  - Endpoint to retrieve the list of postings included in an export.

@@ -1,9 +1,29 @@
 aid: candis
 name: Candis
-description: Candis is a company surfaced as a portfolio company of lightspeed-venture-partners, point-nine,
-  speedinvest and added to the API Evangelist network as a stub for enrichment. This profile is a lead
-  awaiting the enrichment pipeline.
+description: >-
+  Candis is a Berlin-based fintech (founded 2015) offering an AI-driven financial process
+  automation and accounts-payable platform for SMEs. It captures incoming invoices, reads
+  invoice data via OCR (business partner, amount, date, IBAN), routes them through approval
+  workflows, and exports approved postings to accounting systems and ERPs. As a licensed
+  DATEV interface partner it also integrates with Sage and Wolters Kluwer, and supports
+  three-way matching of invoices against purchase orders and goods receipts. Candis exposes
+  a public REST API (developer.candis.io) with an Export API, Core Data API, and read-only
+  Invoice, Reimbursement Item, and Purchase Request Data APIs, secured with OAuth2/OIDC and
+  fronted by an official MCP server.
 url: https://raw.githubusercontent.com/api-evangelist/candis/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://assets.my.candis.io/open_graph/CANDIS-UI.jpg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -14,10 +34,116 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Fintech
+- Accounts Payable
+- Spend Management
+- Invoice Management
+- Financial Process Automation
+- Accounting
+- DATEV
+- OCR
+- Germany
+apis:
+- aid: candis:candis-core-data-api
+  name: Candis Core Data API
+  description: >-
+    Import/update master data: general ledger accounts, cost dimensions, additional delivery costs.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Core Data
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-core-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
+- aid: candis:candis-exports-api
+  name: Candis Exports API
+  description: Export approved invoices and postings to accounting/ERP systems.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-exports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
+- aid: candis:candis-invoices-api
+  name: Candis Invoices API
+  description: Read and update invoice metadata.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
+- aid: candis:candis-organizations-api
+  name: Candis Organizations API
+  description: The Organizations API from Candis — 1 operation(s) for organizations.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
+- aid: candis:candis-purchase-requests-api
+  name: Candis Purchase Requests API
+  description: Read purchase request data.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Purchase Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-purchase-requests-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
+- aid: candis:candis-reimbursements-api
+  name: Candis Reimbursements API
+  description: The Reimbursements API from Candis — 1 operation(s) for reimbursements.
+  humanURL: https://developer.candis.io/
+  baseURL: https://api.candis.io
+  tags:
+  - Reimbursements
+  properties:
+  - type: OpenAPI
+    url: openapi/candis-reimbursements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.candis.io/docs/getting-started
+  - type: APIReference
+    url: https://developer.candis.io/reference
+  - type: Authentication
+    url: authentication/candis-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,4 +151,67 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: http://www.candis.io
+  url: https://www.candis.io/en
+- type: DeveloperPortal
+  url: https://developer.candis.io/
+- type: Documentation
+  url: https://developer.candis.io/docs/getting-started
+- type: APIReference
+  url: https://developer.candis.io/reference
+- type: GettingStarted
+  url: https://developer.candis.io/docs/getting-started
+- type: Blog
+  url: https://www.candis.io/en/blog
+- type: Support
+  url: https://hilfe.candis.io/en
+- type: Login
+  url: https://my.candis.io/
+- type: PrivacyPolicy
+  url: https://www.candis.io/en/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/CandisIO
+- type: StatusPage
+  url: https://status.candis.io
+- type: ChangeLog
+  url: https://developer.candis.io/changelog
+- type: ChangeLog
+  url: changelog/candis-changelog.yml
+- type: OpenAPI
+  url: openapi/candis-openapi.json
+- type: MCPServer
+  url: mcp/candis-mcp.yml
+- type: LLMsTxt
+  url: llms/candis-llms.txt
+- type: Authentication
+  url: authentication/candis-authentication.yml
+- type: OAuthScopes
+  url: scopes/candis-scopes.yml
+- type: WellKnown
+  url: well-known/candis-well-known.yml
+- type: Conventions
+  url: conventions/candis-conventions.yml
+- type: Idempotency
+  url: conventions/candis-conventions.yml
+- type: RateLimits
+  url: rate-limits/candis-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/candis-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/candis-error-codes.yml
+- type: Conformance
+  url: conformance/candis-conformance.yml
+- type: DataModel
+  url: data-model/candis-data-model.yml
+- type: DomainSecurity
+  url: security/candis-domain-security.yml
+- type: Overlay
+  url: overlays/candis-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/candis-export-approved-invoices.md
+- type: AgentSkill
+  url: skills/candis-import-core-data.md
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

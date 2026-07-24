@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source:
+- https://developer.candis.io/docs/how-to-authenticate
+- https://id.my.candis.io/auth/realms/candis/.well-known/openid-configuration
+- https://developer.candis.io/docs/how-to-use-pagination
+- openapi/candis-openapi.json
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OAuth 2.0 authorization code, client credentials, refresh, and token-exchange grants via Keycloak; documented in the auth guide and OIDC discovery.
+- id: oidc
+  conforms: true
+  evidence: OpenID Connect discovery document published at the Keycloak realm well-known endpoint.
+- id: oauth2-token-exchange
+  conforms: true
+  evidence: grant_types_supported includes urn:ietf:params:oauth:grant-type:token-exchange.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom {errorCode, message, requestId, errors[]} envelope, not application/problem+json.
+- id: offset-limit-pagination
+  conforms: true
+  evidence: Collection endpoints use offset/limit query parameters (default/max limit 50).
+- id: datev-interface
+  conforms: true
+  evidence: Candis is a licensed DATEV interface partner; the Export API produces DATEV-compatible exports (accounting/ERP integration).
+  source: https://www.candis.io/en/functions/datev-interface
+notes: >-
+  Standards conformance is asserted from the published auth surface, OIDC discovery,
+  and pagination docs. No published SOC 2 / ISO 27001 certification page was located
+  during this pass, so no Compliance pointer is emitted.

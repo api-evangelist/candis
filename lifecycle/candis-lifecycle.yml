@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: searched
+source:
+- https://developer.candis.io/
+- https://status.candis.io
+- https://developer.candis.io/changelog
+- openapi/candis-openapi.json
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://developer.candis.io/docs/getting-started
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No formal deprecation/sunset policy (RFC 8594) is published. Beta features (e.g. Purchase Requests API) are labeled beta in the changelog.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.candis.io
+status_page_provider: Atlassian Statuspage (slj1x0nsx2vl.statuspage.io)
+changelog: https://developer.candis.io/changelog
+deprecated_operations: []
+notes: >-
+  Candis publishes a public Atlassian Statuspage at status.candis.io and a dated
+  changelog on the developer portal. No published SLA or formal deprecation policy
+  was found.

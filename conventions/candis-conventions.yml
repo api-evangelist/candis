@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: searched
+source:
+- https://developer.candis.io/docs/how-to-use-pagination
+- https://developer.candis.io/docs/rate-limiting-policy
+- https://developer.candis.io/docs/how-to-authenticate
+- https://developer.candis.io/changelog/three-way-match
+- openapi/candis-openapi.json
+base_url: https://api.candis.io
+api_root: https://api.candis.io/v1/organizations/{organizationId}
+authentication:
+  style: OAuth2 Bearer token (Authorization header)
+  see: authentication/candis-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: All resource endpoints are namespaced under /v1/organizations/{organizationId}.
+idempotency:
+  supported: true
+  style: natural-key upsert (no Idempotency-Key header)
+  detail: >-
+    Core Data imports are idempotent by their business key. Per the Three-Way Match
+    changelog: "The import is idempotent. Re-importing with the same order number
+    updates the existing record." General ledger account imports key on the account
+    number/contact name; cost dimensions and purchase orders key on their identifiers.
+    Re-sending the same record updates rather than duplicates it. There is no
+    Idempotency-Key request header; idempotency is a property of the import endpoints.
+  applies_to:
+  - createGeneralLedgerAccounts
+  - updateGeneralLedgerAccounts
+  - createCostCenter
+  - updateCostCenter
+  - updateAdditionalDeliveryCost
+  see: changelog/candis-changelog.yml
+pagination:
+  style: offset-limit
+  params:
+    limit: Maximum items per page. Default 50; maximum 50 (higher values clamp to 50).
+    offset: Number of items to skip before collecting results.
+  applies_to: Collection endpoints (invoices, reimbursement-items, purchase-requests, exports, postings).
+  example: GET /v1/organizations/{organizationId}/invoices?offset=50&limit=50
+rate_limiting:
+  limit: 500 requests per minute
+  scope: per connected organization (not per client)
+  exceeded_status: 429
+  retry_after_header: true
+  guidance: Exponential backoff on 429; batch requests where possible.
+  see: rate-limits/
+request_tracing:
+  request_id_field: requestId
+  location: response body (error envelope) — unique identifier per request for support/debugging.
+error_envelope:
+  format: custom-json
+  shape:
+    errorCode: string (enum of documented error codes)
+    message: string (human-readable description)
+    requestId: string (unique request identifier)
+    errors: array (optional; per-input details with index/property)
+  note: Not RFC 9457 problem+json; a Candis-specific envelope.
+  see: errors/candis-error-codes.yml
+webhooks:
+  supported: false
+  note: No webhook/event surface is documented for the Candis API.

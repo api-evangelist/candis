@@ -1,0 +1,23 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Candis API
+  version: 1.0.0
+extends: openapi/candis-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-18'
+    x-api-provider: Candis
+    x-industry: [Fintech, Accounts Payable, Spend Management, Invoice Management]
+    x-authentication: OAuth2 (Keycloak realm "candis"); Bearer token
+    x-rate-limit: 500 requests/minute per organization
+    x-pagination: offset/limit (max 50)
+    x-status-page: https://status.candis.io
+    x-mcp-server: https://developer.candis.io/mcp
+- target: $.servers
+  update:
+    - url: https://api.candis.io
+      description: Production
+- target: $.info
+  update:
+    x-idempotency: Core Data import endpoints are idempotent (natural-key upsert by order/account number).

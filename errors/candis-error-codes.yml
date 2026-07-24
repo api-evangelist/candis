@@ -1,0 +1,62 @@
+generated: '2026-07-18'
+method: searched
+source:
+- https://developer.candis.io/reference (per-operation OpenAPI error responses)
+- openapi/candis-openapi.json
+format: custom-json
+envelope:
+  fields:
+    errorCode: Machine-readable error code (enum below).
+    message: Human-readable description of the issue.
+    requestId: Unique identifier for the request (quote when contacting support).
+    errors: Optional array with per-input detail (index, property) for validation failures.
+http_statuses_observed: [400, 401, 403, 404, 500, 503]
+error_codes:
+- code: UNAUTHORIZED
+  http: 401
+  meaning: Missing or invalid access token.
+  action: Obtain/refresh a valid OAuth2 access token and send it as a Bearer header.
+- code: FORBIDDEN
+  http: 403
+  meaning: Authenticated but not permitted for the resource/organization or scope.
+  action: Ensure the token has the required scope (exports/core_data) and organization membership.
+- code: BAD_REQUEST
+  http: 400
+  meaning: The request was malformed.
+  action: Check request syntax, headers, and content type.
+- code: BAD_INPUT
+  http: 400
+  meaning: One or more input fields failed validation.
+  action: Inspect the errors[] array for the offending index/property and correct the payload.
+- code: MISSING_REQUESTER_ID
+  http: 400
+  meaning: The requester/organization identifier is missing from the request.
+  action: Include the organizationId path parameter / requester context.
+- code: NOT_FOUND
+  http: 404
+  meaning: The referenced resource does not exist.
+  action: Verify the resource ID (export, file, organization).
+- code: FILE_NOT_FOUND
+  http: 404
+  meaning: The requested export file (PDF/XML) could not be found.
+  action: Confirm the fileId belongs to a completed export.
+- code: EXPORTABLE_POSTINGS_NOT_FOUND
+  http: 400
+  meaning: No exportable postings were available to create the export.
+  action: Ensure there are approved postings of the requested entityType before creating an export.
+- code: FAILED_TO_FETCH_DOWNLOAD_URL
+  http: 500
+  meaning: The service failed to produce a download URL for the file.
+  action: Retry; if persistent, contact Candis support with the requestId.
+- code: TOO_MANY_REQUEST
+  http: 429
+  meaning: Organization rate limit (500 req/min) exceeded.
+  action: Back off using the Retry-After header and retry with exponential backoff.
+- code: SERVICE_UNAVAILABLE
+  http: 503
+  meaning: The service is temporarily unavailable.
+  action: Retry later; check https://status.candis.io.
+- code: INTERNAL_SERVER_ERROR
+  http: 500
+  meaning: An unexpected server error occurred.
+  action: Retry; if persistent, contact support with the requestId.
