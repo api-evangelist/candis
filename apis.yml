@@ -177,7 +177,7 @@ common:
 - type: ChangeLog
   url: changelog/candis-changelog.yml
 - type: OpenAPI
-  url: openapi/candis-openapi.json
+  url: openapi/_original/candis-openapi.json
 - type: MCPServer
   url: mcp/candis-mcp.yml
 - type: LLMsTxt
