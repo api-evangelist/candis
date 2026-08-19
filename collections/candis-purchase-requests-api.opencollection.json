@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Candis Core Data Purchase Requests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchase Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List purchase requests of the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/purchase-requests",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "The offset of the first element in the list."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of elements to return."
+              },
+              {
+                "name": "sortField",
+                "value": "CREATED_AT",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "ASC",
+                "type": "query",
+                "description": "The direction to sort by."
+              },
+              {
+                "name": "status",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Filter by one or more purchase request statuses. Comma separated values."
+              },
+              {
+                "name": "createdAtFrom",
+                "value": "2024-01-01T12:00:00.000Z",
+                "type": "query",
+                "description": "From date and time when the purchase request was created."
+              },
+              {
+                "name": "createdAtTo",
+                "value": "2024-01-31T12:00:00.000Z",
+                "type": "query",
+                "description": "To date and time when the purchase request was created."
+              },
+              {
+                "name": "updatedAtFrom",
+                "value": "2024-01-01T12:00:00.000Z",
+                "type": "query",
+                "description": "From date and time when the purchase request was updated."
+              },
+              {
+                "name": "updatedAtTo",
+                "value": "2024-01-31T12:00:00.000Z",
+                "type": "query",
+                "description": "To date and time when the purchase request was updated."
+              }
+            ]
+          },
+          "docs": "List purchase requests of the organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

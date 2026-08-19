@@ -9,17 +9,15 @@ server:
   url: https://developer.candis.io/mcp
   hosted_by: ReadMe (developer.candis.io documentation project)
   official: true
-  authentication: >-
-    Candis OAuth2 access token (Authorization: Bearer). The MCP server proxies the
-    documented Candis API operations, which require an organization-scoped OAuth token.
+  authentication: 'Candis OAuth2 access token (Authorization: Bearer). The MCP server proxies the documented
+    Candis API operations, which require an organization-scoped OAuth token.'
 client_config:
   mcpServers:
     candis:
       url: https://developer.candis.io/mcp
-tools_source: >-
-  ReadMe generates one MCP tool per operation in the Candis API reference. The
-  candidate tool set below mirrors the reconstructed OpenAPI operations
-  (openapi/candis-openapi.json); confirm exact tool names against the live server.
+tools_source: ReadMe generates one MCP tool per operation in the Candis API reference. The candidate tool
+  set below mirrors the reconstructed OpenAPI operations (openapi/candis-openapi.json); confirm exact
+  tool names against the live server.
 tools:
 - name: createExport
   description: Create an export of approved invoices/postings.
@@ -69,3 +67,11 @@ tools:
 - name: listPurchaseRequests
   description: List purchase requests of the organization.
   source_operation: openapi/candis-openapi.json#listPurchaseRequests
+deployment:
+  mode: remote
+  endpoint: https://developer.candis.io/mcp
+  verified: probed
+  probe: live
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

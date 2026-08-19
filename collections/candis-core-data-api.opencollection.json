@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Candis Core Data API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Core Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Cost Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/cost-centers",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive requests and attempts to create Cost Dimensions in Candis"
+        },
+        {
+          "info": {
+            "name": "Update Cost Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/cost-centers",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive requests and attempts to update Cost Dimensions in Candis"
+        },
+        {
+          "info": {
+            "name": "Create General Ledger Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/general-ledger-accounts",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive requests and attempts to create General Ledger Accounts in Candis"
+        },
+        {
+          "info": {
+            "name": "Update General Ledger Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/general-ledger-accounts",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive requests and attempts to update General Ledger Accounts in Candis"
+        },
+        {
+          "info": {
+            "name": "Get Import Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/:processId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              },
+              {
+                "name": "processId",
+                "value": "9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031",
+                "type": "path",
+                "description": "The import Request ID."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "The offset of the first element in the list."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of elements to return."
+              }
+            ]
+          },
+          "docs": "Returns Status Summary on Core data Import Request received"
+        },
+        {
+          "info": {
+            "name": "Update Additional Delivery Costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/imports/additional-delivery-costs",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive requests and attempts to update Additional Delivery Costs in Candis"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

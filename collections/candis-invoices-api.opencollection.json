@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Candis Core Data Invoices API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List invoices of the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/invoices",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "The offset of the first element in the list."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of elements to return."
+              },
+              {
+                "name": "status",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Current status of the invoice. Comma separated values."
+              },
+              {
+                "name": "invoiceDateFrom",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "From date and time when the invoice was issued."
+              },
+              {
+                "name": "invoiceDateTo",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "To date and time when the invoice was issued."
+              },
+              {
+                "name": "updatedDateFrom",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "From date and time when the invoice was updated."
+              },
+              {
+                "name": "updatedDateTo",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "To date and time when the invoice was updated."
+              }
+            ]
+          },
+          "docs": "List invoices of the organization"
+        },
+        {
+          "info": {
+            "name": "Update an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/invoices/:id",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              },
+              {
+                "name": "id",
+                "value": "7fe351b8-2313-4158-b386-4511cd64b4d5",
+                "type": "path",
+                "description": "Unique identifier of the invoice."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an invoice"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

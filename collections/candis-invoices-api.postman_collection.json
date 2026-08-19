@@ -1,0 +1,777 @@
+{
+  "item": [
+    {
+      "id": "549839f4-f33c-4524-b238-1541c72d9e05",
+      "name": "Invoices",
+      "description": {
+        "content": "Read and update invoice metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92e79f6c-861c-4af9-aed7-a49f8b7cfaca",
+          "name": "List invoices of the organization",
+          "request": {
+            "name": "List invoices of the organization",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset of the first element in the list."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of elements to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Current status of the invoice. Comma separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceDateFrom",
+                  "value": "<string>",
+                  "description": "From date and time when the invoice was issued."
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceDateTo",
+                  "value": "<string>",
+                  "description": "To date and time when the invoice was issued."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedDateFrom",
+                  "value": "<string>",
+                  "description": "From date and time when the invoice was updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedDateTo",
+                  "value": "<string>",
+                  "description": "To date and time when the invoice was updated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "391b0eb8-1626-4a2f-90fd-0cef0123e5d8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "invoiceDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "invoiceDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"pageCount\": 10,\n    \"pageSize\": 50,\n    \"totalCount\": 500\n  },\n  \"invoices\": [\n    {\n      \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n      \"organizationId\": \"alpha-organization\",\n      \"status\": \"APPROVED\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"updatedAt\": \"2024-01-01T12:00:00Z\",\n      \"requestedAt\": \"2024-01-01T12:00:00Z\",\n      \"approvedAt\": \"2024-01-01T12:00:00Z\",\n      \"amount\": {\n        \"value\": 100,\n        \"currencyCode\": \"EUR\"\n      },\n      \"automaticPayment\": false,\n      \"bankAccount\": {\n        \"iban\": \"DE89370400440532013000\",\n        \"swiftCode\": \"COBADEFFXXX\"\n      },\n      \"bookings\": [\n        {\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"amount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 7817.116325853633,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\",\n          \"paymentCondition\": {\n            \"discountAmount\": 1.56,\n            \"discountPaymentDate\": \"2022-09-15T22:00:00.000Z\",\n            \"discountPercentage\": 12\n          }\n        },\n        {\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"amount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 5910.028519694255,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\",\n          \"paymentCondition\": {\n            \"discountAmount\": 1.56,\n            \"discountPaymentDate\": \"2022-09-15T22:00:00.000Z\",\n            \"discountPercentage\": 12\n          }\n        }\n      ],\n      \"category\": {\n        \"documentType\": \"Kasse\"\n      },\n      \"contact\": {\n        \"name\": \"John Doe\",\n        \"accountPayableNumber\": \"K1349234\",\n        \"accountReceivableNumber\": \"J1349456\"\n      },\n      \"deliveryDate\": \"2024-01-01T12:00:00Z\",\n      \"invoiceDate\": \"2024-01-01T12:00:00Z\",\n      \"invoiceId\": \"2024-INVOICE-123\",\n      \"payment\": {\n        \"method\": \"CARD_TRANSACTION\",\n        \"paidAt\": \"2024-01-01T00:00:00Z\"\n      },\n      \"purchaseOrderNumber\": \"PO1234\",\n      \"archiveUrl\": \"https://my.candis.io/alpha-organization/archive/6595441163501d8c055d4af0\"\n    },\n    {\n      \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n      \"organizationId\": \"alpha-organization\",\n      \"status\": \"APPROVED\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"updatedAt\": \"2024-01-01T12:00:00Z\",\n      \"requestedAt\": \"2024-01-01T12:00:00Z\",\n      \"approvedAt\": \"2024-01-01T12:00:00Z\",\n      \"amount\": {\n        \"value\": 100,\n        \"currencyCode\": \"EUR\"\n      },\n      \"automaticPayment\": false,\n      \"bankAccount\": {\n        \"iban\": \"DE89370400440532013000\",\n        \"swiftCode\": \"COBADEFFXXX\"\n      },\n      \"bookings\": [\n        {\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"amount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 3916.9581031881994,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\",\n          \"paymentCondition\": {\n            \"discountAmount\": 1.56,\n            \"discountPaymentDate\": \"2022-09-15T22:00:00.000Z\",\n            \"discountPercentage\": 12\n          }\n        },\n        {\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"amount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 7180.915850771848,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\",\n          \"paymentCondition\": {\n            \"discountAmount\": 1.56,\n            \"discountPaymentDate\": \"2022-09-15T22:00:00.000Z\",\n            \"discountPercentage\": 12\n          }\n        }\n      ],\n      \"category\": {\n        \"documentType\": \"Kasse\"\n      },\n      \"contact\": {\n        \"name\": \"John Doe\",\n        \"accountPayableNumber\": \"K1349234\",\n        \"accountReceivableNumber\": \"J1349456\"\n      },\n      \"deliveryDate\": \"2024-01-01T12:00:00Z\",\n      \"invoiceDate\": \"2024-01-01T12:00:00Z\",\n      \"invoiceId\": \"2024-INVOICE-123\",\n      \"payment\": {\n        \"method\": \"CARD_TRANSACTION\",\n        \"paidAt\": \"2024-01-01T00:00:00Z\"\n      },\n      \"purchaseOrderNumber\": \"PO1234\",\n      \"archiveUrl\": \"https://my.candis.io/alpha-organization/archive/6595441163501d8c055d4af0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f72c249e-1a42-4134-aa8f-8009e28f2db3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "invoiceDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "invoiceDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"TOO_MANY_REQUEST\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc52b611-2aeb-4698-82fb-3c237a3790cb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "invoiceDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "invoiceDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c692b34-461f-4e14-b8d7-941df5b9cfdf",
+          "name": "Update an invoice",
+          "request": {
+            "name": "Update an invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "invoices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of the invoice."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment\": {\n    \"isPaid\": \"<boolean>\",\n    \"paidAt\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a15a82e8-4847-44cd-9d14-7e376eed10de",
+              "name": "Invoice updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the invoice."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment\": {\n    \"isPaid\": true,\n    \"paidAt\": \"2023-05-15T12:00:00Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39cc7f9b-b820-4be6-ba1d-2cd1dad2aed2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the invoice."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment\": {\n    \"isPaid\": true,\n    \"paidAt\": \"2023-05-15T12:00:00Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"TOO_MANY_REQUEST\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3701cbe-27ce-4883-ae65-18ad0408b081",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the invoice."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment\": {\n    \"isPaid\": true,\n    \"paidAt\": \"2023-05-15T12:00:00Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"TOO_MANY_REQUEST\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e0bb44f-74ad-4263-a23f-bd0c0ee2fb92",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the invoice."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment\": {\n    \"isPaid\": true,\n    \"paidAt\": \"2023-05-15T12:00:00Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"TOO_MANY_REQUEST\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bd10372-c902-4266-91a4-2544d913d63b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the invoice."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment\": {\n    \"isPaid\": true,\n    \"paidAt\": \"2023-05-15T12:00:00Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.candis.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "844f07b0-62f7-4140-a2f9-01baa6feb1ac",
+    "name": "Candis Core Data Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).\n\nContact Support:\n Name: Candis",
+      "type": "text/plain"
+    }
+  }
+}

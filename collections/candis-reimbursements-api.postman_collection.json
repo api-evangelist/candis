@@ -1,0 +1,426 @@
+{
+  "item": [
+    {
+      "id": "2c40046d-2167-4611-b386-60b8dc7b9e1a",
+      "name": "Reimbursements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db979f1f-4606-45a2-9842-c42ec59b6423",
+          "name": "List reimbursement items of the organization",
+          "request": {
+            "name": "List reimbursement items of the organization",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "reimbursement-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset of the first element in the list."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of elements to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "<string>",
+                  "description": "The field to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "<string>",
+                  "description": "The direction to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Current status of the reimbursement item. Comma separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "Type of the reimbursement item. Comma separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "reimbursementItemDateFrom",
+                  "value": "<string>",
+                  "description": "From date and time for reimbursement item date."
+                },
+                {
+                  "disabled": false,
+                  "key": "reimbursementItemDateTo",
+                  "value": "<string>",
+                  "description": "To date and time for reimbursement item date."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAtFrom",
+                  "value": "<string>",
+                  "description": "From date and time when the reimbursement item was updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAtTo",
+                  "value": "<string>",
+                  "description": "To date and time when the reimbursement item was updated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8b767e8d-031b-480d-9f2c-736d44db5157",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "reimbursement-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "REIMBURSEMENT_ITEM_DATE"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "EXPORTED"
+                    },
+                    {
+                      "key": "types",
+                      "value": "GENERAL_EXPENSE"
+                    },
+                    {
+                      "key": "reimbursementItemDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "reimbursementItemDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reimbursementItems\": [\n    {\n      \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n      \"status\": \"APPROVED\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"updatedAt\": \"2024-01-01T12:00:00Z\",\n      \"title\": \"Reimbursement Item Title\",\n      \"totalAmount\": {\n        \"amount\": 434.4313046870518,\n        \"currency\": \"string\",\n        \"baseAmount\": 9884.23251275235,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 2035.9685613861589,\n        \"exchangeRateDate\": \"string\"\n      },\n      \"reimbursementCase\": {\n        \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n        \"title\": \"Reimbursement Item Case Title\",\n        \"submittedForReviewAt\": \"2024-01-01T12:00:00Z\"\n      },\n      \"contact\": {\n        \"name\": \"John Doe\",\n        \"accountsPayableNumber\": \"K1349234\",\n        \"paymentInfo\": {\n          \"iban\": \"DE12345678901234567890\",\n          \"swiftCode\": \"BIC123456789\",\n          \"bankAccountNumber\": \"1234567890\",\n          \"accountHolder\": \"John Doe\"\n        }\n      },\n      \"bookings\": [\n        {\n          \"amount\": 2784,\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"baseAmount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 5459.795827163734,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\"\n        },\n        {\n          \"amount\": 2784,\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"baseAmount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 5653.540031628111,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\"\n        }\n      ],\n      \"invoiceNumber\": \"1234567890\",\n      \"expenseDate\": \"2024-01-01T12:00:00Z\",\n      \"type\": \"HOSPITALITY_EXPENSE\",\n      \"receiptAmount\": {\n        \"amount\": 9619.379916904096,\n        \"currency\": \"string\",\n        \"baseAmount\": 9470.821046401665,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 3280.3561884110486,\n        \"exchangeRateDate\": \"string\"\n      },\n      \"location\": \"Berlin\",\n      \"internalGuests\": [\n        \"John Doe\",\n        \"Jane Doe\"\n      ],\n      \"externalGuests\": [\n        \"John Doe\",\n        \"Jane Doe\"\n      ],\n      \"tipAmount\": {\n        \"amount\": 8352.374603453372,\n        \"currency\": \"string\",\n        \"baseAmount\": 4079.7380570310547,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 3125.149117692644,\n        \"exchangeRateDate\": \"string\"\n      }\n    },\n    {\n      \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n      \"status\": \"EXPORTED\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"updatedAt\": \"2024-01-01T12:00:00Z\",\n      \"title\": \"Reimbursement Item Title\",\n      \"totalAmount\": {\n        \"amount\": 4713.273321752586,\n        \"currency\": \"string\",\n        \"baseAmount\": 339.4483027488504,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 8584.328544128692,\n        \"exchangeRateDate\": \"string\"\n      },\n      \"reimbursementCase\": {\n        \"id\": \"8341a018-6196-47cb-8fa2-3ad40983be24\",\n        \"title\": \"Reimbursement Item Case Title\",\n        \"submittedForReviewAt\": \"2024-01-01T12:00:00Z\"\n      },\n      \"contact\": {\n        \"name\": \"John Doe\",\n        \"accountsPayableNumber\": \"K1349234\",\n        \"paymentInfo\": {\n          \"iban\": \"DE12345678901234567890\",\n          \"swiftCode\": \"BIC123456789\",\n          \"bankAccountNumber\": \"1234567890\",\n          \"accountHolder\": \"John Doe\"\n        }\n      },\n      \"bookings\": [\n        {\n          \"amount\": 2784,\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"baseAmount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 4345.491838517441,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\"\n        },\n        {\n          \"amount\": 2784,\n          \"dueDate\": \"2022-09-15T22:00:00.000Z\",\n          \"baseAmount\": 2784,\n          \"costCenter\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"costObject\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"generalLedgerAccount\": {\n            \"accountCode\": \"1100\",\n            \"name\": \"electricity\"\n          },\n          \"extraCostInfo\": {\n            \"code\": \"KOST2\",\n            \"name\": \"booking-1-cs-2-name\"\n          },\n          \"artistSocialInsuranceCode\": \"W\",\n          \"bookingKey\": {\n            \"taxCode\": \"40\",\n            \"description\": \"Tax Code 40\"\n          },\n          \"vatRate\": 2884.5633996797314,\n          \"note\": \"This is a note.\",\n          \"postingText\": \"This is a posting text.\"\n        }\n      ],\n      \"invoiceNumber\": \"1234567890\",\n      \"expenseDate\": \"2024-01-01T12:00:00Z\",\n      \"type\": \"HOSPITALITY_EXPENSE\",\n      \"receiptAmount\": {\n        \"amount\": 6322.633950865257,\n        \"currency\": \"string\",\n        \"baseAmount\": 6299.967195464706,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 53.82067114632516,\n        \"exchangeRateDate\": \"string\"\n      },\n      \"location\": \"Berlin\",\n      \"internalGuests\": [\n        \"John Doe\",\n        \"Jane Doe\"\n      ],\n      \"externalGuests\": [\n        \"John Doe\",\n        \"Jane Doe\"\n      ],\n      \"tipAmount\": {\n        \"amount\": 29.372230019820698,\n        \"currency\": \"string\",\n        \"baseAmount\": 8850.764874013905,\n        \"baseCurrency\": \"string\",\n        \"exchangeRate\": 5929.758048853187,\n        \"exchangeRateDate\": \"string\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"pageCount\": 10,\n    \"pageSize\": 50,\n    \"totalCount\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79823093-9ee0-41f9-bb33-017a2e0e650a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "reimbursement-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "REIMBURSEMENT_ITEM_DATE"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "EXPORTED"
+                    },
+                    {
+                      "key": "types",
+                      "value": "GENERAL_EXPENSE"
+                    },
+                    {
+                      "key": "reimbursementItemDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "reimbursementItemDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"EXPORTABLE_POSTINGS_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4b02d5a-e91f-4ab6-bbad-98c830336ee2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "reimbursement-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "REIMBURSEMENT_ITEM_DATE"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "EXPORTED"
+                    },
+                    {
+                      "key": "types",
+                      "value": "GENERAL_EXPENSE"
+                    },
+                    {
+                      "key": "reimbursementItemDateFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "reimbursementItemDateTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-01T12:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"UNAUTHORIZED\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.candis.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42d33517-d7fd-477b-8232-df8a6b3c0a8b",
+    "name": "Candis Core Data Reimbursements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).\n\nContact Support:\n Name: Candis",
+      "type": "text/plain"
+    }
+  }
+}

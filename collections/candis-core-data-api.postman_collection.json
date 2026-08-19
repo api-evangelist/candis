@@ -1,0 +1,1542 @@
+{
+  "item": [
+    {
+      "id": "d713de95-a7bc-481a-9daa-7f0432d3d3a1",
+      "name": "Core Data",
+      "description": {
+        "content": "Import/update master data: general ledger accounts, cost dimensions, additional delivery costs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e43bc3d0-ab8d-4ef3-9e07-1e5ccec95bee",
+          "name": "Create Cost Dimensions",
+          "request": {
+            "name": "Create Cost Dimensions",
+            "description": {
+              "content": "Receive requests and attempts to create Cost Dimensions in Candis",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                "cost-centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f77aa19e-b877-4792-b3c6-044d15b72e4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58dc2ecb-083f-4b55-9ddb-16af165f5e86",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adb10e6f-ba69-42c9-809e-21376155afdf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"type\": \"COST_CENTER\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44f08e7d-7266-44a0-970b-02bd3de5cd50",
+          "name": "Update Cost Dimensions",
+          "request": {
+            "name": "Update Cost Dimensions",
+            "description": {
+              "content": "Receive requests and attempts to update Cost Dimensions in Candis",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                "cost-centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"code\": \"<string>\",\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isArchived\": \"<boolean>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isArchived\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c97f6474-d482-4b4a-b6af-043290e4b55f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "957c97e9-9cfc-48fa-b6e3-da9d70457d30",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ac68f27-2d5c-4d94-b7b2-f083e26e33b6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"code\": \"ABC-000\",\n    \"type\": \"COST_CENTER\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd33594b-c76e-4ee3-9365-fe395610f1f3",
+          "name": "Create General Ledger Accounts",
+          "request": {
+            "name": "Create General Ledger Accounts",
+            "description": {
+              "content": "Receive requests and attempts to create General Ledger Accounts in Candis",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                "general-ledger-accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"accountCode\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"accountCode\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b395c26-5554-4fba-bebd-2c5ad0e44c05",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "454d3c4a-b3e1-43e5-9f5a-88c99694bcad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46626bc5-7968-4bf3-8e68-18a89cc4716e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b1a89db-4107-495b-b639-f0ec3eee2170",
+          "name": "Update General Ledger Accounts",
+          "request": {
+            "name": "Update General Ledger Accounts",
+            "description": {
+              "content": "Receive requests and attempts to update General Ledger Accounts in Candis",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                "general-ledger-accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"accountCode\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isArchived\": false\n  },\n  {\n    \"accountCode\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isArchived\": false\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f019e76e-4f02-41b7-85e4-a5b50d912792",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d31e637c-8ba7-43bf-9ee9-acf8ae707710",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "423c0127-b5f6-4c9f-8c61-c29443f6ff50",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "general-ledger-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  },\n  {\n    \"accountCode\": \"ABC-000\",\n    \"name\": \"ABC-000\",\n    \"isArchived\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc984244-2a4d-4ada-8470-e1ae2dbcc105",
+          "name": "Get Import Logs",
+          "request": {
+            "name": "Get Import Logs",
+            "description": {
+              "content": "Returns Status Summary on Core data Import Request received",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                ":processId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset of the first element in the list."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of elements to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processId",
+                  "description": "(Required) The import Request ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "a0035a19-586b-4f17-ba5e-0a44b50ffd2d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    ":processId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processId",
+                      "description": "(Required) The import Request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobStatus\": \"PROCESSED\",\n  \"events\": [\n    {\n      \"id\": \"ABC-000\",\n      \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\",\n      \"organizationId\": \"alpha-organization\",\n      \"status\": \"FAILED\",\n      \"operation\": \"CREATE\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"importErrors\": [\n        \"ACCOUNT_CODE_ALREADY_EXIST\"\n      ]\n    },\n    {\n      \"id\": \"ABC-000\",\n      \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\",\n      \"organizationId\": \"alpha-organization\",\n      \"status\": \"FAILED\",\n      \"operation\": \"CREATE\",\n      \"createdAt\": \"2024-01-01T12:00:00Z\",\n      \"importErrors\": [\n        \"ACCOUNT_CODE_ALREADY_EXIST\"\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"pageCount\": 10,\n    \"pageSize\": 50,\n    \"totalCount\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "693ec96e-34d9-4216-8a7e-6029d270730b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    ":processId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processId",
+                      "description": "(Required) The import Request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98fc0316-3fcb-4737-808c-c125356e956a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    ":processId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processId",
+                      "description": "(Required) The import Request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b2866f3-b42f-43db-ba62-bf5996704e19",
+          "name": "Update Additional Delivery Costs",
+          "request": {
+            "name": "Update Additional Delivery Costs",
+            "description": {
+              "content": "Receive requests and attempts to update Additional Delivery Costs in Candis",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "imports",
+                "additional-delivery-costs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"code\": \"<string>\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"createdAt\": \"<string>\",\n      \"updatedAt\": \"<string>\"\n    },\n    \"additionalDescription\": \"<string>\",\n    \"generalLedgerAccount\": \"<string>\",\n    \"taxCode\": \"<string>\",\n    \"costCenter\": \"<string>\",\n    \"costObject\": \"<string>\",\n    \"customCostDimension\": \"<string>\",\n    \"projectCode\": \"<string>\",\n    \"isArchived\": false,\n    \"description\": \"<string>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"createdAt\": \"<string>\",\n      \"updatedAt\": \"<string>\"\n    },\n    \"additionalDescription\": \"<string>\",\n    \"generalLedgerAccount\": \"<string>\",\n    \"taxCode\": \"<string>\",\n    \"costCenter\": \"<string>\",\n    \"costObject\": \"<string>\",\n    \"customCostDimension\": \"<string>\",\n    \"projectCode\": \"<string>\",\n    \"isArchived\": false,\n    \"description\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b1f9165-4e73-43b8-9a5f-188830f4cd5d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "additional-delivery-costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  },\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"processId\": \"9924bb4a-7ee9-4b6a-ac7b-30fdbe6b0031\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a38996ca-084f-4f98-876e-22e15dcdafc8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "additional-delivery-costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  },\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FORBIDDEN\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b29a261f-7e29-4d1a-80aa-e35ddbac1bdf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "imports",
+                    "additional-delivery-costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  },\n  {\n    \"code\": \"PROD-001\",\n    \"erpData\": {\n      \"system\": \"<string>\",\n      \"externalId\": \"67890-223421-21312-123214\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-06-20T14:45:00Z\"\n    },\n    \"additionalDescription\": \"Type 123\",\n    \"generalLedgerAccount\": \"5000\",\n    \"taxCode\": \"VAT19\",\n    \"costCenter\": \"CC-001\",\n    \"costObject\": \"OBJ200\",\n    \"customCostDimension\": \"Berlin\",\n    \"projectCode\": \"PROJ-2024\",\n    \"isArchived\": false,\n    \"description\": \"FREIGHT\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"FILE_NOT_FOUND\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.candis.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fcb0c10a-c4fb-48b8-b40e-6b4ca3e58da6",
+    "name": "Candis Core Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).\n\nContact Support:\n Name: Candis",
+      "type": "text/plain"
+    }
+  }
+}

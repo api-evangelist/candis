@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Candis Core Data Exports API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list Exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/exports",
+            "params": [
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "The offset of the first element in the list."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of elements to return."
+              },
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ]
+          },
+          "docs": "Get a list of past Exports in the Organization."
+        },
+        {
+          "info": {
+            "name": "Create an Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/exports",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Export and return basic details. Initial status of the Export will be \"EXPORTING\"."
+        },
+        {
+          "info": {
+            "name": "Download file by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File ID"
+              },
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ]
+          },
+          "docs": "Download PDF or XML file by ID."
+        },
+        {
+          "info": {
+            "name": "Get an Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/exports/:exportId",
+            "params": [
+              {
+                "name": "exportId",
+                "value": "86e29aff-ba75-492d-85f6-80d802c4fe69",
+                "type": "path",
+                "description": "The export ID."
+              },
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ]
+          },
+          "docs": "Get an Export details by ID."
+        },
+        {
+          "info": {
+            "name": "Get a list of Export Postings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/exports/:exportId/postings",
+            "params": [
+              {
+                "name": "exportId",
+                "value": "86e29aff-ba75-492d-85f6-80d802c4fe69",
+                "type": "path",
+                "description": "The export ID."
+              },
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              }
+            ]
+          },
+          "docs": "Get a list of Postings that were exported in the Export."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "48782015-5ab2-4694-a6c1-b0bb04b929d5",
+      "name": "Purchase Requests",
+      "description": {
+        "content": "Read purchase request data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99fd388a-660a-4837-a5d4-c5339d6f8bcc",
+          "name": "List purchase requests of the organization",
+          "request": {
+            "name": "List purchase requests of the organization",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organizationId",
+                "purchase-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset of the first element in the list."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of elements to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "CREATED_AT",
+                  "description": "The field to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "ASC",
+                  "description": "The direction to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by one or more purchase request statuses. Comma separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAtFrom",
+                  "value": "<string>",
+                  "description": "From date and time when the purchase request was created."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAtTo",
+                  "value": "<string>",
+                  "description": "To date and time when the purchase request was created."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAtFrom",
+                  "value": "<string>",
+                  "description": "From date and time when the purchase request was updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAtTo",
+                  "value": "<string>",
+                  "description": "To date and time when the purchase request was updated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The organization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "5f52eb68-5a0a-40ef-8893-5dd52c628def",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "purchase-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "CREATED_AT"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "createdAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseRequests\": [\n    {\n      \"id\": \"d851a73e-94d6-4f4b-babc-ef9314fc8184\",\n      \"status\": \"APPROVED\",\n      \"createdAt\": \"2022-09-15T22:00:00.000Z\",\n      \"updatedAt\": \"2022-09-16T22:00:00.000Z\",\n      \"supplier\": {\n        \"name\": \"ACME Supplies GmbH\",\n        \"accountPayableNumber\": \"AP-1001\",\n        \"accountReceivableNumber\": \"AR-1001\"\n      },\n      \"title\": \"Office Chairs\",\n      \"description\": \"Ergonomic chairs for the Berlin office\",\n      \"requestNumber\": \"PR-2024-001\",\n      \"grossAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      },\n      \"netAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      },\n      \"deliveryDate\": \"2022-09-15T22:00:00.000Z\",\n      \"notes\": \"Please prioritize delivery this week.\",\n      \"costCenter\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"costObject\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"generalLedgerAccount\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"extraCostInfo\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"customCategory\": {\n        \"id\": \"cat-001\",\n        \"value\": \"Marketing\"\n      },\n      \"outstandingNetAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      }\n    },\n    {\n      \"id\": \"d851a73e-94d6-4f4b-babc-ef9314fc8184\",\n      \"status\": \"APPROVED\",\n      \"createdAt\": \"2022-09-15T22:00:00.000Z\",\n      \"updatedAt\": \"2022-09-16T22:00:00.000Z\",\n      \"supplier\": {\n        \"name\": \"ACME Supplies GmbH\",\n        \"accountPayableNumber\": \"AP-1001\",\n        \"accountReceivableNumber\": \"AR-1001\"\n      },\n      \"title\": \"Office Chairs\",\n      \"description\": \"Ergonomic chairs for the Berlin office\",\n      \"requestNumber\": \"PR-2024-001\",\n      \"grossAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      },\n      \"netAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      },\n      \"deliveryDate\": \"2022-09-15T22:00:00.000Z\",\n      \"notes\": \"Please prioritize delivery this week.\",\n      \"costCenter\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"costObject\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"generalLedgerAccount\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"extraCostInfo\": {\n        \"code\": \"CC-1000\",\n        \"name\": \"Operations\"\n      },\n      \"customCategory\": {\n        \"id\": \"cat-001\",\n        \"value\": \"Marketing\"\n      },\n      \"outstandingNetAmount\": {\n        \"value\": 123.12,\n        \"currencyCode\": \"EUR\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"pageCount\": 10,\n    \"pageSize\": 50,\n    \"totalCount\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d08733ad-ad87-4951-837c-55079f0cdb2a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "purchase-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "CREATED_AT"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "createdAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"SERVICE_UNAVAILABLE\",\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    },\n    {\n      \"property\": \"string\",\n      \"messages\": [\n        \"string\",\n        \"string\"\n      ],\n      \"index\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2354ed72-9012-4762-837f-008dfa6b743d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organizationId",
+                    "purchase-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "CREATED_AT"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "createdAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "createdAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2024-01-01T12:00:00.000Z"
+                    },
+                    {
+                      "key": "updatedAtTo",
+                      "value": "2024-01-31T12:00:00.000Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The organization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"UNAUTHORIZED\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.candis.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3ee7c357-41bd-4d18-8144-a02e9aa378f6",
+    "name": "Candis Core Data Purchase Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).\n\nContact Support:\n Name: Candis",
+      "type": "text/plain"
+    }
+  }
+}

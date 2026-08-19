@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Candis Core Data Reimbursements API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reimbursements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reimbursement items of the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.candis.io/v1/organizations/:organizationId/reimbursement-items",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "alpha-organization",
+                "type": "path",
+                "description": "The organization ID."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "The offset of the first element in the list."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of elements to return."
+              },
+              {
+                "name": "sortField",
+                "value": "REIMBURSEMENT_ITEM_DATE",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "ASC",
+                "type": "query",
+                "description": "The direction to sort by."
+              },
+              {
+                "name": "status",
+                "value": "EXPORTED",
+                "type": "query",
+                "description": "Current status of the reimbursement item. Comma separated values."
+              },
+              {
+                "name": "types",
+                "value": "GENERAL_EXPENSE",
+                "type": "query",
+                "description": "Type of the reimbursement item. Comma separated values."
+              },
+              {
+                "name": "reimbursementItemDateFrom",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "From date and time for reimbursement item date."
+              },
+              {
+                "name": "reimbursementItemDateTo",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "To date and time for reimbursement item date."
+              },
+              {
+                "name": "updatedAtFrom",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "From date and time when the reimbursement item was updated."
+              },
+              {
+                "name": "updatedAtTo",
+                "value": "2024-01-01T12:00:00Z",
+                "type": "query",
+                "description": "To date and time when the reimbursement item was updated."
+              }
+            ]
+          },
+          "docs": "List reimbursement items of the organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
