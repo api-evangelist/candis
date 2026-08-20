@@ -70,6 +70,8 @@ apis:
   humanURL: https://developer.candis.io/
   baseURL: https://api.candis.io
   tags:
+  - Export
+  tags_raw:
   - Exports
   properties:
   - type: OpenAPI
@@ -102,6 +104,8 @@ apis:
   humanURL: https://developer.candis.io/
   baseURL: https://api.candis.io
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -134,6 +138,8 @@ apis:
   humanURL: https://developer.candis.io/
   baseURL: https://api.candis.io
   tags:
+  - Reimbursement
+  tags_raw:
   - Reimbursements
   properties:
   - type: OpenAPI
