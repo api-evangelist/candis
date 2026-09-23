@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Candis Core Data API
   description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
@@ -233,10 +233,11 @@ paths:
                       description: The unique code of the cost dimension
                       example: ABC-000
                     name:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: Name of the cost dimension
                       example: ABC-000
-                      nullable: true
                     isArchived:
                       type: boolean
                       description: Flag to deactivate or activate a cost dimension
@@ -258,10 +259,11 @@ paths:
                       description: The unique code of the cost dimension
                       example: ABC-000
                     name:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: Name of the cost dimension
                       example: ABC-000
-                      nullable: true
                     isArchived:
                       type: boolean
                       description: Flag to deactivate or activate a cost dimension
@@ -283,10 +285,11 @@ paths:
                       description: The unique code of the cost dimension
                       example: ABC-000
                     name:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: Name of the cost dimension
                       example: ABC-000
-                      nullable: true
                     isArchived:
                       type: boolean
                       description: Flag to deactivate or activate a cost dimension
@@ -563,10 +566,11 @@ paths:
                     description: The unique General Ledger Account Code
                     example: ABC-000
                   name:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: General Ledger Account Label
                     example: ABC-000
-                    nullable: true
                   isArchived:
                     type: boolean
                     description: Flag to deactivate a General Ledger Account entry
@@ -940,40 +944,47 @@ paths:
                     description: The unique code of the additional delivery cost
                     example: PROD-001
                   additionalDescription:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Secondary description of the additional delivery cost
                     example: Type 123
-                    nullable: true
                   generalLedgerAccount:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: General Ledger (GL) account code
                     example: '5000'
-                    nullable: true
                   taxCode:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Candis tax code
                     example: VAT19
-                    nullable: true
                   costCenter:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Cost center code (DIM 1)
                     example: CC-001
-                    nullable: true
                   costObject:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Cost object code (DIM 2)
                     example: OBJ200
-                    nullable: true
                   customCostDimension:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Custom cost dimension code (DIM 3)
                     example: Berlin
-                    nullable: true
                   projectCode:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Project code (optional, not yet supported for BC365)
                     example: PROJ-2024
-                    nullable: true
                   isArchived:
                     type: boolean
                     description: Archive status (soft delete flag)
@@ -992,23 +1003,26 @@ paths:
                           description: External ID of the additional delivery cost in the ERP system
                           example: 67890-223421-21312-123214
                         createdAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: Creation timestamp in the ERP system
                           example: '2024-01-15T09:30:00Z'
-                          nullable: true
                         updatedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: Last update timestamp in the ERP system
                           example: '2024-06-20T14:45:00Z'
-                          nullable: true
                       required:
                       - system
                       - externalId
                   description:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: Primary description of the additional delivery cost
                     example: FREIGHT
-                    nullable: true
                 required:
                 - code
                 - erpData

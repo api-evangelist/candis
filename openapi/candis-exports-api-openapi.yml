@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Candis Core Data Exports API
+  title: Candis Exports API
   description: Candis API for exporting approved invoices and postings, managing master core data (contacts, general ledger accounts, cost dimensions, delivery costs), and reading invoice, reimbursement item, and purchase request data. Reconstructed by the API Evangelist enrichment pipeline from the per-operation OpenAPI fragments embedded in the Candis ReadMe developer reference (developer.candis.io).
   version: 1.0.0
   contact:
@@ -41,7 +41,9 @@ paths:
               type: object
               properties:
                 entityType:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                   description: Posting Type for which you need to create an Export for.
                   example: DOCUMENT
                   default: DOCUMENT
@@ -49,7 +51,6 @@ paths:
                   - DOCUMENT
                   - REIMBURSEMENT_ITEM
                   - CARD_TRANSACTION
-                  nullable: true
       responses:
         '201':
           description: ''
@@ -841,15 +842,17 @@ paths:
                             - type: object
                               properties:
                                 name:
-                                  type: string
+                                  type:
+                                  - string
+                                  - 'null'
                                   description: Payment Condition Name
                                   example: Credit Card Discount
-                                  nullable: true
                                 discountPercentage:
-                                  type: number
+                                  type:
+                                  - number
+                                  - 'null'
                                   description: Discount Percentage
                                   example: 10
-                                  nullable: true
                                 discountPaymentDate:
                                   type: string
                                   format: date-time
@@ -960,15 +963,17 @@ paths:
                                         description: Purchase order item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - orderNumber
                                     - lineNumber
@@ -992,15 +997,17 @@ paths:
                                         description: Goods receipt item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - receiptNumber
                                     - lineNumber
@@ -1188,15 +1195,17 @@ paths:
                             - type: object
                               properties:
                                 name:
-                                  type: string
+                                  type:
+                                  - string
+                                  - 'null'
                                   description: Payment Condition Name
                                   example: Credit Card Discount
-                                  nullable: true
                                 discountPercentage:
-                                  type: number
+                                  type:
+                                  - number
+                                  - 'null'
                                   description: Discount Percentage
                                   example: 10
-                                  nullable: true
                                 discountPaymentDate:
                                   type: string
                                   format: date-time
@@ -1307,15 +1316,17 @@ paths:
                                         description: Purchase order item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - orderNumber
                                     - lineNumber
@@ -1339,15 +1350,17 @@ paths:
                                         description: Goods receipt item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - receiptNumber
                                     - lineNumber
@@ -1381,19 +1394,22 @@ paths:
                             type: object
                             properties:
                               bookingAccount:
-                                type: string
-                                nullable: true
+                                type:
+                                - string
+                                - 'null'
                               transitAccount:
-                                type: string
-                                nullable: true
+                                type:
+                                - string
+                                - 'null'
                           payment:
                             type: object
                             properties:
                               method:
-                                type: string
+                                type:
+                                - string
+                                - 'null'
                                 enum:
                                 - CARD_TRANSACTION
-                                nullable: true
                               paidAt:
                                 type: string
                                 format: date-time
@@ -1592,15 +1608,17 @@ paths:
                                         description: Purchase order item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Purchase order external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - orderNumber
                                     - lineNumber
@@ -1624,15 +1642,17 @@ paths:
                                         description: Goods receipt item number.
                                         example: '1000'
                                       locationCode:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt location code.
                                         example: LOC-001
-                                        nullable: true
                                       externalLineId:
-                                        type: string
+                                        type:
+                                        - string
+                                        - 'null'
                                         description: Goods receipt external line ID.
                                         example: e4cf0d1b-8514-4437-9b7f-2648b87ec8f5
-                                        nullable: true
                                     required:
                                     - receiptNumber
                                     - lineNumber
