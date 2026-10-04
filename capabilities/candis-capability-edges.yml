@@ -1,0 +1,25 @@
+slug: candis
+provider: Candis
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Invoices
+  spec_file: candis-invoices-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.82
+  evidence: GET /v1/organizations/{organizationId}/invoices 'List invoices of the organization'; vendor
+    'captures incoming invoices ... routes them through approval workflows'
+  reason: Invoices here are incoming supplier invoices processed by an accounts-payable automation platform,
+    so the surface realises Accounts Payable Management.
