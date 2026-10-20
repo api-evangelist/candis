@@ -19,54 +19,20 @@ tools_source: ReadMe generates one MCP tool per operation in the Candis API refe
   set below mirrors the reconstructed OpenAPI operations (openapi/candis-openapi.json); confirm exact
   tool names against the live server.
 tools:
-- name: createExport
-  description: Create an export of approved invoices/postings.
-  source_operation: openapi/candis-openapi.json#createExport
-- name: getExports
-  description: List past exports in the organization.
-  source_operation: openapi/candis-openapi.json#getExports
-- name: getExport
-  description: Get an export's details by ID.
-  source_operation: openapi/candis-openapi.json#getExport
-- name: getExportPostings
-  description: List postings that were exported in an export.
-  source_operation: openapi/candis-openapi.json#getExportPostings
-- name: downloadFile
-  description: Download an export PDF or XML file by ID.
-  source_operation: openapi/candis-openapi.json#downloadFile
-- name: getOrganization
-  description: Get details of the connected organization.
-  source_operation: openapi/candis-openapi.json#getOrganization
-- name: createGeneralLedgerAccounts
-  description: Create general ledger accounts in Candis.
-  source_operation: openapi/candis-openapi.json#createGeneralLedgerAccounts
-- name: updateGeneralLedgerAccounts
-  description: Update general ledger accounts in Candis.
-  source_operation: openapi/candis-openapi.json#updateGeneralLedgerAccounts
-- name: createCostCenter
-  description: Create cost dimensions (cost centers/objects) in Candis.
-  source_operation: openapi/candis-openapi.json#createCostCenter
-- name: updateCostCenter
-  description: Update cost dimensions in Candis.
-  source_operation: openapi/candis-openapi.json#updateCostCenter
-- name: updateAdditionalDeliveryCost
-  description: Update additional delivery costs in Candis.
-  source_operation: openapi/candis-openapi.json#updateAdditionalDeliveryCost
-- name: getImportLogs
-  description: Get status summary/logs for a core-data import request.
-  source_operation: openapi/candis-openapi.json#getImportLogs
-- name: listInvoices
-  description: List invoices of the organization.
-  source_operation: openapi/candis-openapi.json#listInvoices
-- name: updateInvoice
-  description: Update an invoice.
-  source_operation: openapi/candis-openapi.json#updateInvoice
-- name: listReimbursementItems
-  description: List reimbursement items of the organization.
-  source_operation: openapi/candis-openapi.json#listReimbursementItems
-- name: listPurchaseRequests
-  description: List purchase requests of the organization.
-  source_operation: openapi/candis-openapi.json#listPurchaseRequests
+- name: list-endpoints
+  description: Lists all API paths and their HTTP methods with summaries, organized by path. Results can
+    be passed directly into 'get-endpoint'.
+- name: get-endpoint
+  description: Gets detailed information about a specific API endpoint, including security schemes and
+    servers
+- name: search-endpoints
+  description: Performs a deep search through paths, operations, and parameters to discover relevant API
+    endpoints. Use this tool to find specific API capabilities, required parameters, or data models based
+    on search keywords. Results can be passed directly into 'get-endpoint'.
+- name: list-specs
+  description: Lists all available OpenAPI specs. Use the title to select a spec.
+- name: get-server-variables
+  description: Gets the server variables for each server within a specific OpenAPI spec.
 deployment:
   mode: remote
   endpoint: https://developer.candis.io/mcp
@@ -100,3 +66,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 5
