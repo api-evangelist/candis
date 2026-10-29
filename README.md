@@ -64,6 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Candis is a company surfaced as a portfolio company of lightspeed-venture-partners, point-nine, speedinvest and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Candis is a Berlin-based fintech (founded 2015) offering an AI-driven financial process automation and accounts-payable platform for SMEs. It captures incoming invoices, reads invoice data via OCR (business partner, amount, date, IBAN), routes them through approval workflows, and exports approved postings to accounting systems and ERPs. As a licensed DATEV interface partner it also integrates with Sage and Wolters Kluwer, and supports three-way matching of invoices against purchase orders and goods receipts. Candis exposes a public REST API (developer.candis.io) with an Export API, Core Data API, and read-only Invoice, Reimbursement Item, and Purchase Request Data APIs, secured with OAuth2/OIDC and fronted by an official MCP server.
 
-Backed by: lightspeed-venture-partners, point-nine, speedinvest — http://www.candis.io
+**Areas:** Company · Fintech · Accounts Payable · Spend Management · Invoice Management · Financial Process Automation · Accounting · DATEV · OCR · Germany
+
+## Candis on APIs.io
+
+Everything profiled for Candis is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/candis/](https://apis.io/providers/candis/)** — or go straight to one of the APIs or properties below.
+
+### APIs (6)
+
+- [Candis Core Data API](https://apis.io/apis/candis/candis-core-data-api/) — Import/update master data: general ledger accounts, cost dimensions, additional delivery costs.
+- [Candis Exports API](https://apis.io/apis/candis/candis-exports-api/) — Export approved invoices and postings to accounting/ERP systems.
+- [Candis Invoices API](https://apis.io/apis/candis/candis-invoices-api/) — Read and update invoice metadata.
+- [Candis Organizations API](https://apis.io/apis/candis/candis-organizations-api/) — The Organizations API from Candis — 1 operation(s) for organizations.
+- [Candis Purchase Requests API](https://apis.io/apis/candis/candis-purchase-requests-api/) — Read purchase request data.
+- [Candis Reimbursements API](https://apis.io/apis/candis/candis-reimbursements-api/) — The Reimbursements API from Candis — 1 operation(s) for reimbursements.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [candis](https://apis.io/servers/candis/candis/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Candis Core Data API](https://apis.io/collections/candis/open-candis-core-data-api/)
+- [Candis Core Data Exports API](https://apis.io/collections/candis/open-candis-exports-api/)
+- [Candis Core Data Invoices API](https://apis.io/collections/candis/open-candis-invoices-api/)
+- [Candis Core Data Organizations API](https://apis.io/collections/candis/open-candis-organizations-api/)
+- [Candis Core Data Purchase Requests API](https://apis.io/collections/candis/open-candis-purchase-requests-api/)
+- [Candis Core Data Reimbursements API](https://apis.io/collections/candis/open-candis-reimbursements-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Candis Openapi Overlay](https://apis.io/overlays/candis/candis-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Candis Authentication](https://apis.io/security/candis/candis-authentication/)
+- [Candis Domain Security](https://apis.io/security/candis/candis-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Candis Scopes](https://apis.io/scopes/candis/candis-scopes/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Candis Rate Limits](https://apis.io/rate-limits/candis/candis-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.candis.io/en)
+- [Documentation](https://developer.candis.io/docs/getting-started)
+- [Getting started](https://developer.candis.io/docs/getting-started)
+- [API reference](https://developer.candis.io/reference)
+- [Support](https://hilfe.candis.io/en)
+- [Changelog](https://developer.candis.io/changelog)
+- [Blog](https://www.candis.io/en/blog)
+- [Privacy policy](https://www.candis.io/en/privacy-policy)
+- [GitHub](https://github.com/CandisIO)
+- [Status](https://status.candis.io)
+
+## API Evangelist rating
+
+**Kin Score 43.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 50.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 39.9 |
+| Access clarity | 17.1 |
+
+**Agent readiness 52.3** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/candis/](https://apis.io/providers/candis/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Candis: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/candis/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
